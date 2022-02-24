@@ -50,7 +50,7 @@ public final class VitalCondense extends JavaPlugin {
 		Bukkit.getLogger().info("Copyright (C) 2022 Leopold Meinel");
 		Bukkit.getLogger().info("This program comes with ABSOLUTELY NO WARRANTY!");
 		Bukkit.getLogger().info("This is free software, and you are welcome to redistribute it under certain conditions.");
-		Bukkit.getLogger().info("See https://github.com/TamrielNetwork/VitalCompact/blob/main/LICENSE for more details.");
+		Bukkit.getLogger().info("See https://github.com/TamrielNetwork/VitalCondense/blob/main/LICENSE for more details.");
 	}
 
 	@Override
@@ -66,8 +66,10 @@ public final class VitalCondense extends JavaPlugin {
 	}
 
 	public ValidItemStorage getValidItemStorage() {
+
 		return validItemStorage;
 	}
+
 }
 
 

@@ -35,7 +35,6 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 
 	private final File validItemFile;
 
-
 	public ValidItemStorageYaml() {
 
 		validItemFile = new File(main.getDataFolder(), "validitemstorage.yml");
@@ -57,7 +56,8 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 
 	@Override
 	public HashMap<Integer, List<Material>> loadValidItems() {
-		HashMap<Integer,List<Material>> validItems = new HashMap<>();
+
+		HashMap<Integer, List<Material>> validItems = new HashMap<>();
 		try {
 
 			FileInputStream fileIn = new FileInputStream(validItemFile);
@@ -75,7 +75,8 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 
 	@Override
 	public void clear() {
-		if(validItemFile.delete()) {
+
+		if (validItemFile.delete()) {
 			Bukkit.getLogger().info("VitalCondense deleted persistent HashMap containing valid items!");
 			Bukkit.getLogger().info("VitalCondense will restore it on the next restart!");
 

@@ -4,7 +4,7 @@ main: com.tamrielnetwork.vitalcondense.VitalCondense
 api-version: 1.17
 authors: [ Tamriel Network ]
 website: https://tamriel.site
-description: Gives players the ability to open a crafting interface.
+description: Gives players the ability to condense items in their inventory.
 commands:
   vitalcondense:
     description: "Main command"
