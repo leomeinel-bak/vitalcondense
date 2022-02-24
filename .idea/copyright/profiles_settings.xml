@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
-  <settings default="VitalCompact">
+  <settings default="VitalCondense">
     <module2copyright>
-      <element module="All" copyright="VitalCompact" />
+      <element module="All" copyright="VitalCondense" />
     </module2copyright>
     <LanguageOptions name="CSS" />
     <LanguageOptions name="DTD" />
