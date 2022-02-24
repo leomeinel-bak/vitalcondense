@@ -1,15 +1,15 @@
-name: VitalCraft
+name: VitalCondense
 version: @version@
-main: com.tamrielnetwork.vitalcraft.VitalCraft
+main: com.tamrielnetwork.vitalcondense.VitalCondense
 api-version: 1.17
 authors: [ Tamriel Network ]
 website: https://tamriel.site
 description: Gives players the ability to open a crafting interface.
 commands:
-  vitalcraft:
+  vitalcondense:
     description: "Main command"
-    usage: "/vitalcraft"
+    usage: "/vitalcondense"
 permissions:
-  vitalcraft.craft:
+  vitalcondense.condense:
     description: "Permission to toggle crafting interface"
     default: op

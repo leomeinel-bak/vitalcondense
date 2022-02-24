@@ -1,5 +1,5 @@
 /*
- * VitalCompact is a Spigot Plugin that gives players the ability to compact items in their inventory.
+ * VitalCondense is a Spigot Plugin that gives players the ability to compact items in their inventory.
  * Copyright © 2022 Leopold Meinel
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,9 +16,9 @@
  * along with this program. If not, see https://github.com/TamrielNetwork/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcraft.utils;
+package com.tamrielnetwork.vitalcondense.utils;
 
-import com.tamrielnetwork.vitalcraft.VitalCraft;
+import com.tamrielnetwork.vitalcondense.VitalCondense;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,13 +28,15 @@ import java.util.Objects;
 
 public class Chat {
 
-	private static final VitalCraft main = JavaPlugin.getPlugin(VitalCraft.class);
+	private static final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
 	public static void sendMessage(@NotNull CommandSender player, @NotNull String message) {
+
 		player.sendMessage(replaceColors(Objects.requireNonNull(main.getMessages().getMessagesConf().getString(message))));
 	}
 
 	public static String replaceColors(@NotNull String string) {
+
 		return ChatColor.translateAlternateColorCodes('&', string);
 	}
 
