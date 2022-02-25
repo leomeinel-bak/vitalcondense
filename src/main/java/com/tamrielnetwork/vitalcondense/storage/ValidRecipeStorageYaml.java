@@ -77,8 +77,8 @@ public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 	public void clear() {
 
 		if (validRecipeFile.delete()) {
-			Bukkit.getLogger().info("VitalCondense deleted persistent HashMap containing valid items!");
-			Bukkit.getLogger().info("VitalCondense will restore it on the next restart!");
+			Bukkit.getLogger().info("VitalCondense deleted valid recipes!");
+			Bukkit.getLogger().info("VitalCondense They will be restored on startup!");
 
 		}
 

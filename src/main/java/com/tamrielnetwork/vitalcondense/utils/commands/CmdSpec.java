@@ -20,8 +20,12 @@ package com.tamrielnetwork.vitalcondense.utils.commands;
 
 import com.tamrielnetwork.vitalcondense.VitalCondense;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +34,41 @@ import java.util.List;
 public class CmdSpec {
 
 	private static final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
+
+	public static void doCondense(@NotNull Player senderPlayer) {
+
+		Inventory senderInventory = senderPlayer.getInventory();
+		ItemStack[] inventoryItemStacks = senderPlayer.getInventory().getContents();
+		HashMap<Integer, List<ItemStack>> validItemsMap = CmdSpec.getValidInventoryItemStacks(inventoryItemStacks);
+
+		for (List<ItemStack> validItems : validItemsMap.values()) {
+			for (ItemStack validItem : validItems) {
+				int validItemAmount = validItem.getAmount();
+				if (validItemsMap.containsKey(4) && validItemAmount >= 4) {
+					if (validItemsMap.get(4).contains(validItem)) {
+
+						int itemAmountToTake = validItemAmount - validItemAmount % 4;
+						ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
+						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / 4);
+
+						senderInventory.removeItem(itemsToTake);
+						senderInventory.addItem(itemsToGive);
+					}
+				}
+				if (validItemsMap.containsKey(9) && validItemAmount >= 9) {
+					if (validItemsMap.get(9).contains(validItem)) {
+
+						int itemAmountToTake = validItemAmount - validItemAmount % 9;
+						ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
+						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / 9);
+
+						senderInventory.removeItem(itemsToTake);
+						senderInventory.addItem(itemsToGive);
+					}
+				}
+			}
+		}
+	}
 
 	public static HashMap<Integer, List<ItemStack>> getValidInventoryItemStacks(ItemStack[] inventoryItemStacks) {
 
@@ -62,6 +101,17 @@ public class CmdSpec {
 
 		Material itemStackMaterial = itemStack.getType();
 		return main.getValidRecipeStorage().loadValidRecipes().get(itemStackMaterial);
+	}
+
+	public static boolean isInvalidCmd(@NotNull CommandSender sender, @NotNull String perm) {
+
+		if (Cmd.isInvalidSender(sender)) {
+			return true;
+		}
+		if (Cmd.isNotPermitted(sender, perm)) {
+			return true;
+		}
+		return false;
 	}
 
 	private static boolean isInvalidItemStack(ItemStack inventoryItemStack, Material material) {

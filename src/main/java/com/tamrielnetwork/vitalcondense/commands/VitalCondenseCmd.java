@@ -24,12 +24,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.List;
 
 public class VitalCondenseCmd implements CommandExecutor {
 
@@ -46,42 +41,12 @@ public class VitalCondenseCmd implements CommandExecutor {
 
 	private void doCondense(@NotNull CommandSender sender) {
 
-		if (Cmd.isInvalidSender(sender) || Cmd.isNotPermitted(sender, "vitalcondense.craft")) {
+		if (Cmd.isInvalidSender(sender) || Cmd.isNotPermitted(sender, "vitalcondense.condense")) {
 			return;
 		}
 		Player senderPlayer = (Player) sender;
 
-		Inventory senderInventory = senderPlayer.getInventory();
-		ItemStack[] inventoryItemStacks = senderPlayer.getInventory().getContents();
-		HashMap<Integer, List<ItemStack>> validItemsMap = CmdSpec.getValidInventoryItemStacks(inventoryItemStacks);
-
-		for (List<ItemStack> validItems : validItemsMap.values()) {
-			for (ItemStack validItem : validItems) {
-				int validItemAmount = validItem.getAmount();
-				if (validItemsMap.containsKey(4) && validItemAmount >= 4) {
-					if (validItemsMap.get(4).contains(validItem)) {
-
-						int itemAmountToTake = validItemAmount - validItemAmount % 4;
-						ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / 4);
-
-						senderInventory.removeItem(itemsToTake);
-						senderInventory.addItem(itemsToGive);
-					}
-				}
-				if (validItemsMap.containsKey(9) && validItemAmount >= 9) {
-					if (validItemsMap.get(9).contains(validItem)) {
-
-						int itemAmountToTake = validItemAmount - validItemAmount % 9;
-						ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / 9);
-
-						senderInventory.removeItem(itemsToTake);
-						senderInventory.addItem(itemsToGive);
-					}
-				}
-			}
-		}
+		CmdSpec.doCondense(senderPlayer);
 
 	}
 
