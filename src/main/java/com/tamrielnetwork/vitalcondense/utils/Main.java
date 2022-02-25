@@ -42,11 +42,11 @@ public class Main {
 				continue;
 			}
 			for (Recipe recipe : Bukkit.getRecipesFor(new ItemStack(material))) {
-				List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
 
 				if (isInvalidMaterial(recipe)) {
 					continue;
 				}
+				List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
 				updateLists(ingredientsList);
 				inventoryCraft.removeIf(workbenchCraft::contains);
 			}
@@ -67,11 +67,11 @@ public class Main {
 				continue;
 			}
 			for (Recipe recipe : Bukkit.getRecipesFor(new ItemStack(material))) {
-				List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
 
 				if (isInvalidMaterial(recipe)) {
 					continue;
 				}
+				List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
 				updateLists(ingredientsList);
 				if (inventoryCraft.stream().anyMatch(workbenchCraft::contains) && ingredientsList.size() == 4) {
 					continue;
