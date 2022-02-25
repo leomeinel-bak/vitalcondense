@@ -79,7 +79,7 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 
 		if (validItemFile.delete()) {
 			Bukkit.getLogger().info("VitalCondense deleted valid items!");
-			Bukkit.getLogger().info("VitalCondense They will be restored on startup!");
+			Bukkit.getLogger().info("VitalCondense will restore them on startup!");
 
 		}
 

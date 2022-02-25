@@ -78,7 +78,7 @@ public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 
 		if (validRecipeFile.delete()) {
 			Bukkit.getLogger().info("VitalCondense deleted valid recipes!");
-			Bukkit.getLogger().info("VitalCondense They will be restored on startup!");
+			Bukkit.getLogger().info("VitalCondense will restore them on startup!");
 
 		}
 
