@@ -29,25 +29,24 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
-import java.util.List;
 
 @SuppressWarnings ("unchecked")
-public class ValidItemStorageYaml extends ValidItemStorage {
+public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 
-	private final File validItemFile;
+	private final File validRecipeFile;
 
-	public ValidItemStorageYaml() {
+	public ValidRecipeStorageYaml() {
 
-		validItemFile = new File(main.getDataFolder(), "validitemstorage.yml");
+		validRecipeFile = new File(main.getDataFolder(), "validrecipestorage.yml");
 	}
 
 	@Override
-	public void saveValidItems(@NotNull HashMap<Integer, List<Material>> hashMap) {
+	public void saveValidRecipes(@NotNull HashMap<Material, Material> validRecipes) {
 
 		try {
-			FileOutputStream fileOut = new FileOutputStream(validItemFile);
+			FileOutputStream fileOut = new FileOutputStream(validRecipeFile);
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(hashMap);
+			out.writeObject(validRecipes);
 			out.close();
 			fileOut.close();
 		} catch (IOException i) {
@@ -56,28 +55,28 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 	}
 
 	@Override
-	public HashMap<Integer, List<Material>> loadValidItems() {
+	public HashMap<Material, Material> loadValidRecipes() {
 
-		HashMap<Integer, List<Material>> validItems = new HashMap<>();
+		HashMap<Material, Material> validRecipes = new HashMap<>();
 
 		try {
-			FileInputStream fileIn = new FileInputStream(validItemFile);
+			FileInputStream fileIn = new FileInputStream(validRecipeFile);
 			ObjectInputStream in = new ObjectInputStream(fileIn);
-			validItems = (HashMap<Integer, List<Material>>) in.readObject();
+			validRecipes = (HashMap<Material, Material>) in.readObject();
 			in.close();
 			fileIn.close();
 
 		} catch (IOException | ClassNotFoundException exception) {
 			exception.printStackTrace();
 		}
-		return validItems;
+		return validRecipes;
 
 	}
 
 	@Override
 	public void clear() {
 
-		if (validItemFile.delete()) {
+		if (validRecipeFile.delete()) {
 			Bukkit.getLogger().info("VitalCondense deleted persistent HashMap containing valid items!");
 			Bukkit.getLogger().info("VitalCondense will restore it on the next restart!");
 

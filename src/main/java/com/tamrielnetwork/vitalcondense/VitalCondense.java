@@ -22,6 +22,8 @@ import com.tamrielnetwork.vitalcondense.commands.VitalCondenseCmd;
 import com.tamrielnetwork.vitalcondense.files.Messages;
 import com.tamrielnetwork.vitalcondense.storage.ValidItemStorage;
 import com.tamrielnetwork.vitalcondense.storage.ValidItemStorageYaml;
+import com.tamrielnetwork.vitalcondense.storage.ValidRecipeStorage;
+import com.tamrielnetwork.vitalcondense.storage.ValidRecipeStorageYaml;
 import com.tamrielnetwork.vitalcondense.utils.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +33,7 @@ import java.util.Objects;
 public final class VitalCondense extends JavaPlugin {
 
 	private ValidItemStorage validItemStorage;
+	private ValidRecipeStorage validRecipeStorage;
 	private Messages messages;
 
 	@Override
@@ -40,9 +43,7 @@ public final class VitalCondense extends JavaPlugin {
 
 		saveDefaultConfig();
 
-		this.validItemStorage = new ValidItemStorageYaml();
-
-		validItemStorage.saveValidItems(Main.getValidItems());
+		setUpStorage();
 
 		messages = new Messages();
 
@@ -53,10 +54,21 @@ public final class VitalCondense extends JavaPlugin {
 		Bukkit.getLogger().info("See https://github.com/TamrielNetwork/VitalCondense/blob/main/LICENSE for more details.");
 	}
 
+	private void setUpStorage() {
+
+		this.validItemStorage = new ValidItemStorageYaml();
+		this.validRecipeStorage = new ValidRecipeStorageYaml();
+
+		validItemStorage.saveValidItems(Main.getValidItems());
+		validRecipeStorage.saveValidRecipes(Main.getValidRecipes());
+
+	}
+
 	@Override
 	public void onDisable() {
 
 		validItemStorage.clear();
+		validRecipeStorage.clear();
 		Bukkit.getLogger().info("VitalCondense v" + this.getDescription().getVersion() + " disabled");
 	}
 
@@ -68,6 +80,11 @@ public final class VitalCondense extends JavaPlugin {
 	public ValidItemStorage getValidItemStorage() {
 
 		return validItemStorage;
+	}
+
+	public ValidRecipeStorage getValidRecipeStorage() {
+
+		return validRecipeStorage;
 	}
 
 }

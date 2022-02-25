@@ -30,11 +30,12 @@ import java.util.List;
 
 public class Main {
 
+	static final List<Material> inventoryCraft = new ArrayList<>();
+	static final List<Material> workbenchCraft = new ArrayList<>();
+
 	public static HashMap<Integer, List<Material>> getValidItems() {
 
 		HashMap<Integer, List<Material>> validItems = new HashMap<>();
-		List<Material> inventoryCraft = new ArrayList<>();
-		List<Material> workbenchCraft = new ArrayList<>();
 
 		for (Material material : Material.values()) {
 			if (!material.isBlock()) {
@@ -43,47 +44,77 @@ public class Main {
 			ItemStack itemStack = new ItemStack(material);
 			List<Recipe> recipeList = Bukkit.getRecipesFor(itemStack);
 			for (Recipe recipe : recipeList) {
-				if (!(recipe instanceof ShapedRecipe)) {
+				if (isInvalidMaterial(recipe)) {
 					continue;
 				}
 				List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
-
-				if (ingredientsList.contains(null)) {
-					continue;
-				}
-				if (isInvalidMaterial(ingredientsList)) {
-					continue;
-				}
-				if (!(ingredientsList.size() == 9 || ingredientsList.size() == 4)) {
-					continue;
-				}
-				if (!(ingredientsList.stream().allMatch(ingredientsList.get(0)::equals))) {
-					continue;
-				}
-				if (ingredientsList.size() == 4) {
-					inventoryCraft.add(ingredientsList.get(0).getType());
-					validItems.put(4, inventoryCraft);
-				}
-				if (ingredientsList.size() == 9) {
-					workbenchCraft.add(ingredientsList.get(0).getType());
-					validItems.put(9, workbenchCraft);
-				}
+				updateLists(ingredientsList);
 				inventoryCraft.removeIf(workbenchCraft::contains);
 			}
 
 		}
+		validItems.put(4, inventoryCraft);
+		validItems.put(9, workbenchCraft);
 		return validItems;
 
 	}
 
-	private static boolean isInvalidMaterial(List<ItemStack> ingredientsList) {
+	public static HashMap<Material, Material> getValidRecipes() {
 
+		HashMap<Material, Material> validRecipes = new HashMap<>();
+
+		for (Material material : Material.values()) {
+			if (!material.isBlock()) {
+				continue;
+			}
+			ItemStack itemStack = new ItemStack(material);
+			List<Recipe> recipeList = Bukkit.getRecipesFor(itemStack);
+			for (Recipe recipe : recipeList) {
+				if (isInvalidMaterial(recipe)) {
+					continue;
+				}
+				List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
+				updateLists(ingredientsList);
+				if (inventoryCraft.stream().anyMatch(workbenchCraft::contains) && ingredientsList.size() == 4) {
+					continue;
+				}
+				validRecipes.put(ingredientsList.get(0).getType(), recipe.getResult().getType());
+			}
+
+		}
+		return validRecipes;
+
+	}
+
+	private static void updateLists(List<ItemStack> ingredientsList) {
+
+		if (ingredientsList.size() == 4) {
+			inventoryCraft.add(ingredientsList.get(0).getType());
+		}
+		if (ingredientsList.size() == 9) {
+			workbenchCraft.add(ingredientsList.get(0).getType());
+		}
+	}
+
+	private static boolean isInvalidMaterial(Recipe recipe) {
+
+		if (!(recipe instanceof ShapedRecipe)) {
+			return true;
+		}
+		List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
+
+		if (ingredientsList.contains(null)) {
+			return true;
+		}
 		for (ItemStack itemStack : ingredientsList) {
 			if (itemStack.getType().isBlock()) {
 				return true;
 			}
 		}
-		return false;
+		if (!(ingredientsList.size() == 9 || ingredientsList.size() == 4)) {
+			return true;
+		}
+		return !(ingredientsList.stream().allMatch(ingredientsList.get(0)::equals));
 	}
 
 }

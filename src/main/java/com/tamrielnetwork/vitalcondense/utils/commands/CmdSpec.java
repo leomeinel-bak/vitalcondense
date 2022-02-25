@@ -39,29 +39,36 @@ public class CmdSpec {
 
 		for (Material material : main.getValidItemStorage().loadValidItems().get(4)) {
 			for (ItemStack inventoryItemStack : inventoryItemStacks) {
-				if (inventoryItemStack == null) {
-					continue;
-				}
-				if (!(inventoryItemStack.getType() == material)) {
+				if (isInvalidItemStack(inventoryItemStack, material)) {
 					continue;
 				}
 				validInventoryCraftItems.add(inventoryItemStack);
-				validItemsMap.put(4, validInventoryCraftItems);
 			}
 		}
 		for (Material material : main.getValidItemStorage().loadValidItems().get(9)) {
 			for (ItemStack inventoryItemStack : inventoryItemStacks) {
-				if (inventoryItemStack == null) {
-					continue;
-				}
-				if (!(inventoryItemStack.getType() == material)) {
+				if (isInvalidItemStack(inventoryItemStack, material)) {
 					continue;
 				}
 				validWorkbenchCraftItems.add(inventoryItemStack);
-				validItemsMap.put(9, validWorkbenchCraftItems);
 			}
 		}
+		validItemsMap.put(4, validInventoryCraftItems);
+		validItemsMap.put(9, validWorkbenchCraftItems);
 		return validItemsMap;
+	}
+
+	public static Material getGiveMaterial(ItemStack itemStack) {
+
+		Material itemStackMaterial = itemStack.getType();
+		return main.getValidRecipeStorage().loadValidRecipes().get(itemStackMaterial);
+	}
+
+	private static boolean isInvalidItemStack(ItemStack inventoryItemStack, Material material) {
+		if (inventoryItemStack == null) {
+			return true;
+		}
+		return !(inventoryItemStack.getType() == material);
 	}
 
 }
