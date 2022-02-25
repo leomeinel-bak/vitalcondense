@@ -65,6 +65,7 @@ public class CmdSpec {
 	}
 
 	private static boolean isInvalidItemStack(ItemStack inventoryItemStack, Material material) {
+
 		if (inventoryItemStack == null) {
 			return true;
 		}

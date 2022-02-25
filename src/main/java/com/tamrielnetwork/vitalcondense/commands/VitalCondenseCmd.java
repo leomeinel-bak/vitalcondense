@@ -50,6 +50,7 @@ public class VitalCondenseCmd implements CommandExecutor {
 			return;
 		}
 		Player senderPlayer = (Player) sender;
+
 		Inventory senderInventory = senderPlayer.getInventory();
 		ItemStack[] inventoryItemStacks = senderPlayer.getInventory().getContents();
 		HashMap<Integer, List<ItemStack>> validItemsMap = CmdSpec.getValidInventoryItemStacks(inventoryItemStacks);
@@ -57,22 +58,24 @@ public class VitalCondenseCmd implements CommandExecutor {
 		for (List<ItemStack> validItems : validItemsMap.values()) {
 			for (ItemStack validItem : validItems) {
 				int validItemAmount = validItem.getAmount();
-				if (validItemsMap.containsKey(4) && validItemAmount >=4) {
+				if (validItemsMap.containsKey(4) && validItemAmount >= 4) {
 					if (validItemsMap.get(4).contains(validItem)) {
+
 						int itemAmountToTake = validItemAmount - validItemAmount % 4;
-						int itemAmountToGive = itemAmountToTake / 4;
 						ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToGive);
+						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / 4);
+
 						senderInventory.removeItem(itemsToTake);
 						senderInventory.addItem(itemsToGive);
 					}
 				}
-				if (validItemsMap.containsKey(9) && validItemAmount >=9) {
+				if (validItemsMap.containsKey(9) && validItemAmount >= 9) {
 					if (validItemsMap.get(9).contains(validItem)) {
+
 						int itemAmountToTake = validItemAmount - validItemAmount % 9;
-						int itemAmountToGive = itemAmountToTake / 9;
 						ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToGive);
+						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / 9);
+
 						senderInventory.removeItem(itemsToTake);
 						senderInventory.addItem(itemsToGive);
 					}
