@@ -41,7 +41,7 @@ public class VitalCondenseCmd implements CommandExecutor {
 
 	private void doCondense(@NotNull CommandSender sender) {
 
-		if (Cmd.isInvalidSender(sender) || Cmd.isNotPermitted(sender, "vitalcondense.condense")) {
+		if (CmdSpec.isInvalidCmd(sender, "vitalcondense.condense")) {
 			return;
 		}
 		Player senderPlayer = (Player) sender;
