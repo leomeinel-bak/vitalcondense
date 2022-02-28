@@ -39,7 +39,7 @@ public class CmdSpec {
 
 		Inventory senderInventory = senderPlayer.getInventory();
 		ItemStack[] inventoryItemStacks = senderInventory.getContents();
-		HashMap<Integer, List<ItemStack>> validItemsMap = CmdSpec.getValidInventoryItemStacks(inventoryItemStacks);
+		HashMap<Integer, List<ItemStack>> validItemsMap = getReturnItems(inventoryItemStacks);
 
 		for (List<ItemStack> validItems : validItemsMap.values()) {
 			for (ItemStack validItem : validItems) {
@@ -50,6 +50,14 @@ public class CmdSpec {
 		}
 	}
 
+	public static boolean isInvalidCmd(@NotNull CommandSender sender, @NotNull String perm) {
+
+		if (Cmd.isInvalidSender(sender)) {
+			return true;
+		}
+		return Cmd.isNotPermitted(sender, perm);
+	}
+
 	private static void doCondense(@NotNull Inventory senderInventory, @NotNull HashMap<Integer, List<ItemStack>> validItemsMap, @NotNull ItemStack validItem, int validItemAmount, int gridSize) {
 
 		if (validItemsMap.containsKey(gridSize) && validItemAmount >= gridSize) {
@@ -57,7 +65,7 @@ public class CmdSpec {
 
 				int itemAmountToTake = validItemAmount - validItemAmount % gridSize;
 				ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-				ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / gridSize);
+				ItemStack itemsToGive = new ItemStack(getGiveMaterial(validItem), itemAmountToTake / gridSize);
 
 				senderInventory.removeItem(itemsToTake);
 				senderInventory.addItem(itemsToGive);
@@ -65,45 +73,51 @@ public class CmdSpec {
 		}
 	}
 
-	public static HashMap<Integer, List<ItemStack>> getValidInventoryItemStacks(@NotNull ItemStack[] inventoryItemStacks) {
+	private static void calculateAmount(@NotNull ItemStack[] inventoryItemStacks, @NotNull HashMap<Material, Integer> amountsMap, @NotNull Material material) {
 
-		List<ItemStack> validInventoryCraftItems = new ArrayList<>();
-		List<ItemStack> validWorkbenchCraftItems = new ArrayList<>();
+		for (ItemStack inventoryItemStack : inventoryItemStacks) {
+			if (isInvalidItemStack(inventoryItemStack, material)) {
+				continue;
+			}
+			if (amountsMap.containsKey(inventoryItemStack.getType())) {
+				amountsMap.put(inventoryItemStack.getType(), (amountsMap.get(inventoryItemStack.getType()) + inventoryItemStack.getAmount()));
+			} else {
+				amountsMap.put(inventoryItemStack.getType(), inventoryItemStack.getAmount());
+			}
+		}
+	}
+
+	private static HashMap<Integer, List<ItemStack>> getReturnItems(@NotNull ItemStack[] inventoryItemStacks) {
+
+		List<ItemStack> smallGridItems = new ArrayList<>();
+		List<ItemStack> bigGridItems = new ArrayList<>();
 		HashMap<Integer, List<ItemStack>> validItemsMap = new HashMap<>();
+		HashMap<Material, Integer> smallGridAmountsMap = new HashMap<>();
+		HashMap<Material, Integer> bigGridAmountsMap = new HashMap<>();
 
 		for (Material material : main.getValidItemStorage().loadValidItems().get(4)) {
-			for (ItemStack inventoryItemStack : inventoryItemStacks) {
-				if (isInvalidItemStack(inventoryItemStack, material)) {
-					continue;
-				}
-				validInventoryCraftItems.add(inventoryItemStack);
-			}
+			calculateAmount(inventoryItemStacks, smallGridAmountsMap, material);
 		}
+		for (Material material : smallGridAmountsMap.keySet()) {
+			smallGridItems.add(new ItemStack(material, smallGridAmountsMap.get(material)));
+		}
+
 		for (Material material : main.getValidItemStorage().loadValidItems().get(9)) {
-			for (ItemStack inventoryItemStack : inventoryItemStacks) {
-				if (isInvalidItemStack(inventoryItemStack, material)) {
-					continue;
-				}
-				validWorkbenchCraftItems.add(inventoryItemStack);
-			}
+			calculateAmount(inventoryItemStacks, bigGridAmountsMap, material);
 		}
-		validItemsMap.put(4, validInventoryCraftItems);
-		validItemsMap.put(9, validWorkbenchCraftItems);
+		for (Material material : bigGridAmountsMap.keySet()) {
+			bigGridItems.add(new ItemStack(material, bigGridAmountsMap.get(material)));
+		}
+
+		validItemsMap.put(4, smallGridItems);
+		validItemsMap.put(9, bigGridItems);
 		return validItemsMap;
 	}
 
-	public static Material getGiveMaterial(@NotNull ItemStack itemStack) {
+	private static Material getGiveMaterial(@NotNull ItemStack itemStack) {
 
 		Material itemStackMaterial = itemStack.getType();
 		return main.getValidRecipeStorage().loadValidRecipes().get(itemStackMaterial);
-	}
-
-	public static boolean isInvalidCmd(@NotNull CommandSender sender, @NotNull String perm) {
-
-		if (Cmd.isInvalidSender(sender)) {
-			return true;
-		}
-		return Cmd.isNotPermitted(sender, perm);
 	}
 
 	private static boolean isInvalidItemStack(ItemStack inventoryItemStack, @NotNull Material material) {
