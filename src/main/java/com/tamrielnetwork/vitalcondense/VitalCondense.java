@@ -41,9 +41,9 @@ public final class VitalCondense extends JavaPlugin {
 
 		Objects.requireNonNull(getCommand("vitalcondense")).setExecutor(new VitalCondenseCmd());
 
-		setUpStorage();
-
 		messages = new Messages();
+
+		setUpStorage();
 
 		Bukkit.getLogger().info("VitalCondense v" + this.getDescription().getVersion() + " enabled");
 		Bukkit.getLogger().info("Copyright (C) 2022 Leopold Meinel");
