@@ -99,7 +99,7 @@ To get the plugin running on your server follow these simple steps.
 player-only: "&cThis command can only be executed by players!"
 invalid-option: "&cInvalid option!"
 no-perms: "&7You don't have enough permissions!"
-cmd: "cmd"
+cmd: "&7Usage: &b/vitalcondense"
 ```
 
 <!-- ROADMAP -->

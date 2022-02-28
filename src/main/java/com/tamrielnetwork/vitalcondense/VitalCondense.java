@@ -24,7 +24,7 @@ import com.tamrielnetwork.vitalcondense.storage.ValidItemStorage;
 import com.tamrielnetwork.vitalcondense.storage.ValidItemStorageYaml;
 import com.tamrielnetwork.vitalcondense.storage.ValidRecipeStorage;
 import com.tamrielnetwork.vitalcondense.storage.ValidRecipeStorageYaml;
-import com.tamrielnetwork.vitalcondense.utils.Main;
+import com.tamrielnetwork.vitalcondense.utils.storage.StorageSpec;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -40,8 +40,6 @@ public final class VitalCondense extends JavaPlugin {
 	public void onEnable() {
 
 		Objects.requireNonNull(getCommand("vitalcondense")).setExecutor(new VitalCondenseCmd());
-
-		saveDefaultConfig();
 
 		setUpStorage();
 
@@ -59,8 +57,8 @@ public final class VitalCondense extends JavaPlugin {
 		this.validItemStorage = new ValidItemStorageYaml();
 		this.validRecipeStorage = new ValidRecipeStorageYaml();
 
-		validItemStorage.saveValidItems(Main.getValidItems());
-		validRecipeStorage.saveValidRecipes(Main.getValidRecipes());
+		validItemStorage.saveValidItems(StorageSpec.getValidItems());
+		validRecipeStorage.saveValidRecipes(StorageSpec.getValidRecipes());
 
 	}
 
