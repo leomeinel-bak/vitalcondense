@@ -33,13 +33,15 @@ import java.util.List;
 
 public class CmdSpec {
 
+	// Fixme: Implement senderInventory.all to check all items at once and get cumulative amount
+
 	private static final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
 	public static void doCondense(@NotNull Player senderPlayer) {
 
 		Inventory senderInventory = senderPlayer.getInventory();
-		ItemStack[] inventoryItemStacks = senderPlayer.getInventory().getContents();
-		HashMap<Integer, List<ItemStack>> validItemsMap = CmdSpec.getValidInventoryItemStacks(inventoryItemStacks);
+		ItemStack[] inventoryItemStacks = senderInventory.getStorageContents();
+		HashMap<Integer, List<ItemStack>> validItemsMap = getValidInventoryItemStacks(inventoryItemStacks);
 
 		for (List<ItemStack> validItems : validItemsMap.values()) {
 			for (ItemStack validItem : validItems) {
@@ -49,7 +51,7 @@ public class CmdSpec {
 
 						int itemAmountToTake = validItemAmount - validItemAmount % 4;
 						ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / 4);
+						ItemStack itemsToGive = new ItemStack(getGiveMaterial(validItem), itemAmountToTake / 4);
 
 						senderInventory.removeItem(itemsToTake);
 						senderInventory.addItem(itemsToGive);
@@ -60,7 +62,7 @@ public class CmdSpec {
 
 						int itemAmountToTake = validItemAmount - validItemAmount % 9;
 						ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-						ItemStack itemsToGive = new ItemStack(CmdSpec.getGiveMaterial(validItem), itemAmountToTake / 9);
+						ItemStack itemsToGive = new ItemStack(getGiveMaterial(validItem), itemAmountToTake / 9);
 
 						senderInventory.removeItem(itemsToTake);
 						senderInventory.addItem(itemsToGive);
@@ -108,10 +110,7 @@ public class CmdSpec {
 		if (Cmd.isInvalidSender(sender)) {
 			return true;
 		}
-		if (Cmd.isNotPermitted(sender, perm)) {
-			return true;
-		}
-		return false;
+		return Cmd.isNotPermitted(sender, perm);
 	}
 
 	private static boolean isInvalidItemStack(ItemStack inventoryItemStack, Material material) {
