@@ -108,10 +108,7 @@ public class CmdSpec {
 		if (Cmd.isInvalidSender(sender)) {
 			return true;
 		}
-		if (Cmd.isNotPermitted(sender, perm)) {
-			return true;
-		}
-		return false;
+		return Cmd.isNotPermitted(sender, perm);
 	}
 
 	private static boolean isInvalidItemStack(ItemStack inventoryItemStack, Material material) {
