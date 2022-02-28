@@ -91,6 +91,23 @@ public class CmdSpec {
 		return Cmd.isNotPermitted(sender, perm);
 	}
 
+	private static List<ItemStack> getValidInventoryItemStacks(ItemStack[] inventoryItemStacks) {
+
+		List<ItemStack> validItems = new ArrayList<>();
+
+		for (List<Material> materials : main.getValidItemStorage().loadValidItems().values()) {
+			for (Material material : materials) {
+				for (ItemStack inventoryItemStack : inventoryItemStacks) {
+					if (isInvalidItemStack(inventoryItemStack, material)) {
+						continue;
+					}
+					validItems.add(inventoryItemStack);
+				}
+			}
+		}
+		return validItems;
+	}
+
 	private static HashMap<Integer, List<Material>> getValidInventoryMaterials(ItemStack[] inventoryItemStacks) {
 
 		List<Material> validInventoryCraftMaterials = new ArrayList<>();
@@ -116,23 +133,6 @@ public class CmdSpec {
 		validMaterialsMap.put(4, validInventoryCraftMaterials);
 		validMaterialsMap.put(9, validWorkbenchCraftMaterials);
 		return validMaterialsMap;
-	}
-
-	private static List<ItemStack> getValidInventoryItemStacks(ItemStack[] inventoryItemStacks) {
-
-		List<ItemStack> validItems = new ArrayList<>();
-
-		for (List<Material> materials : main.getValidItemStorage().loadValidItems().values()) {
-			for (Material material : materials) {
-				for (ItemStack inventoryItemStack : inventoryItemStacks) {
-					if (isInvalidItemStack(inventoryItemStack, material)) {
-						continue;
-					}
-					validItems.add(inventoryItemStack);
-				}
-			}
-		}
-		return validItems;
 	}
 
 	private static Material getGiveMaterial(ItemStack itemStack) {
