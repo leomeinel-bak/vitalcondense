@@ -38,7 +38,7 @@ public class CmdSpec {
 	public static void handleCondense(@NotNull Player senderPlayer) {
 
 		Inventory senderInventory = senderPlayer.getInventory();
-		ItemStack[] inventoryItemStacks = senderInventory.getContents();
+		ItemStack[] inventoryItemStacks = senderInventory.getStorageContents();
 		HashMap<Integer, List<ItemStack>> validItemsMap = getReturnItems(inventoryItemStacks);
 
 		for (List<ItemStack> validItems : validItemsMap.values()) {
