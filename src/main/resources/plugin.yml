@@ -11,5 +11,5 @@ commands:
     usage: "/vitalcondense"
 permissions:
   vitalcondense.condense:
-    description: "Permission to toggle crafting interface"
+    description: "Permission to condense items"
     default: op
