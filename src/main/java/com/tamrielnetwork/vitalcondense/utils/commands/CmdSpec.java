@@ -38,8 +38,8 @@ public class CmdSpec {
 	public static void handleCondense(@NotNull Player senderPlayer) {
 
 		Inventory senderInventory = senderPlayer.getInventory();
-		ItemStack[] inventoryItemStacks = senderInventory.getStorageContents();
-		HashMap<Integer, List<ItemStack>> validItemsMap = getReturnItems(inventoryItemStacks);
+		ItemStack[] inventoryItems = senderInventory.getStorageContents();
+		HashMap<Integer, List<ItemStack>> validItemsMap = getValidInventoryItems(inventoryItems);
 
 		for (List<ItemStack> validItems : validItemsMap.values()) {
 			for (ItemStack validItem : validItems) {
@@ -75,19 +75,19 @@ public class CmdSpec {
 
 	private static void calculateAmount(@NotNull ItemStack[] inventoryItemStacks, @NotNull HashMap<Material, Integer> amountsMap, @NotNull Material material) {
 
-		for (ItemStack inventoryItemStack : inventoryItemStacks) {
-			if (isInvalidItemStack(inventoryItemStack, material)) {
+		for (ItemStack inventoryItems : inventoryItemStacks) {
+			if (isInvalidItem(inventoryItems, material)) {
 				continue;
 			}
-			if (amountsMap.containsKey(inventoryItemStack.getType())) {
-				amountsMap.put(inventoryItemStack.getType(), (amountsMap.get(inventoryItemStack.getType()) + inventoryItemStack.getAmount()));
+			if (amountsMap.containsKey(inventoryItems.getType())) {
+				amountsMap.put(inventoryItems.getType(), (amountsMap.get(inventoryItems.getType()) + inventoryItems.getAmount()));
 			} else {
-				amountsMap.put(inventoryItemStack.getType(), inventoryItemStack.getAmount());
+				amountsMap.put(inventoryItems.getType(), inventoryItems.getAmount());
 			}
 		}
 	}
 
-	private static HashMap<Integer, List<ItemStack>> getReturnItems(@NotNull ItemStack[] inventoryItemStacks) {
+	private static HashMap<Integer, List<ItemStack>> getValidInventoryItems(@NotNull ItemStack[] inventoryItems) {
 
 		List<ItemStack> smallGridItems = new ArrayList<>();
 		List<ItemStack> bigGridItems = new ArrayList<>();
@@ -96,14 +96,14 @@ public class CmdSpec {
 		HashMap<Material, Integer> bigGridAmountsMap = new HashMap<>();
 
 		for (Material material : main.getValidItemStorage().loadValidItems().get(4)) {
-			calculateAmount(inventoryItemStacks, smallGridAmountsMap, material);
+			calculateAmount(inventoryItems, smallGridAmountsMap, material);
 		}
 		for (Material material : smallGridAmountsMap.keySet()) {
 			smallGridItems.add(new ItemStack(material, smallGridAmountsMap.get(material)));
 		}
 
 		for (Material material : main.getValidItemStorage().loadValidItems().get(9)) {
-			calculateAmount(inventoryItemStacks, bigGridAmountsMap, material);
+			calculateAmount(inventoryItems, bigGridAmountsMap, material);
 		}
 		for (Material material : bigGridAmountsMap.keySet()) {
 			bigGridItems.add(new ItemStack(material, bigGridAmountsMap.get(material)));
@@ -116,16 +116,16 @@ public class CmdSpec {
 
 	private static Material getGiveMaterial(@NotNull ItemStack itemStack) {
 
-		Material itemStackMaterial = itemStack.getType();
-		return main.getValidRecipeStorage().loadValidRecipes().get(itemStackMaterial);
+		Material material = itemStack.getType();
+		return main.getValidRecipeStorage().loadValidRecipes().get(material);
 	}
 
-	private static boolean isInvalidItemStack(ItemStack inventoryItemStack, @NotNull Material material) {
+	private static boolean isInvalidItem(ItemStack inventoryItem, @NotNull Material material) {
 
-		if (inventoryItemStack == null) {
+		if (inventoryItem == null) {
 			return true;
 		}
-		return !(inventoryItemStack.getType() == material);
+		return !(inventoryItem.getType() == material);
 	}
 
 }
