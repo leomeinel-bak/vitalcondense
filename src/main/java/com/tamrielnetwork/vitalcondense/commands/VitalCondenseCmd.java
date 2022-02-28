@@ -46,7 +46,7 @@ public class VitalCondenseCmd implements CommandExecutor {
 		}
 		Player senderPlayer = (Player) sender;
 
-		CmdSpec.doCondense(senderPlayer);
+		CmdSpec.handleCondense(senderPlayer);
 
 	}
 
