@@ -16,7 +16,7 @@
  * along with this program. If not, see https://github.com/TamrielNetwork/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcondense.utils.storage;
+package com.tamrielnetwork.vitalcondense.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class StorageSpec {
+public class Main {
 
 	static final List<Material> inventoryCraft = new ArrayList<>();
 	static final List<Material> workbenchCraft = new ArrayList<>();
