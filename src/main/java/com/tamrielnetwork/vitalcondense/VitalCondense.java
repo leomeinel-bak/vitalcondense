@@ -39,7 +39,7 @@ public final class VitalCondense extends JavaPlugin {
 	@Override
 	public void onEnable() {
 
-		Objects.requireNonNull(getCommand("vitalcondense")).setExecutor(new VitalCondenseCmd());
+		Objects.requireNonNull(getCommand("condense")).setExecutor(new VitalCondenseCmd());
 
 		messages = new Messages();
 

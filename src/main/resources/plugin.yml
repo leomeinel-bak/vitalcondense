@@ -6,9 +6,9 @@ authors: [ Tamriel Network ]
 website: https://tamriel.site
 description: Gives players the ability to condense items in their inventory.
 commands:
-  vitalcondense:
+  condense:
     description: "Main command"
-    usage: "/vitalcondense"
+    usage: "/condense"
 permissions:
   vitalcondense.condense:
     description: "Permission to condense items"

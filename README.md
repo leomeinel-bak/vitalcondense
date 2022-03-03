@@ -85,7 +85,7 @@ To get the plugin running on your server follow these simple steps.
 
 1. Permission: `vitalcondense.condense`
 
-* Command: `/vitalcondense`
+* Command: `/condense`
 * Description: Condense items in your inventory
 
 ### Configuration - config.yml
