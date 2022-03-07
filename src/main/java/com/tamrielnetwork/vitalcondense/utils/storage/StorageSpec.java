@@ -25,15 +25,17 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StorageSpec {
 
 	static final List<Material> inventoryCraft = new ArrayList<>();
 	static final List<Material> workbenchCraft = new ArrayList<>();
 
-	public static HashMap<Integer, List<Material>> getValidItems() {
+	public static Map<Integer, List<Material>> getValidItems() {
 
 		HashMap<Integer, List<Material>> validItems = new HashMap<>();
 
@@ -58,9 +60,9 @@ public class StorageSpec {
 
 	}
 
-	public static HashMap<Material, Material> getValidRecipes() {
+	public static Map<Material, Material> getValidRecipes() {
 
-		HashMap<Material, Material> validRecipes = new HashMap<>();
+		EnumMap<Material, Material> validRecipes = new EnumMap<>(Material.class);
 
 		for (Material material : Material.values()) {
 			if (!material.isBlock()) {
