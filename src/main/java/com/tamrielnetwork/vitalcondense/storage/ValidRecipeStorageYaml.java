@@ -34,6 +34,8 @@ import java.util.Map;
 @SuppressWarnings ("unchecked")
 public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 
+	private static final String IOEXCEPTION = "VitalCondense encountered an IOException while executing task";
+	private static final String CLASSNOTFOUNDEXCEPTION = "VitalCondense encountered a ClassNotFoundException while executing task";
 	private final File validRecipeFile;
 
 	public ValidRecipeStorageYaml() {
@@ -60,7 +62,8 @@ public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 			validRecipes = (EnumMap<Material, Material>) in.readObject();
 
 		} catch (IOException | ClassNotFoundException exception) {
-			exception.printStackTrace();
+			Bukkit.getLogger().warning(IOEXCEPTION);
+			Bukkit.getLogger().warning(CLASSNOTFOUNDEXCEPTION);
 		}
 		return validRecipes;
 

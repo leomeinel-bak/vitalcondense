@@ -20,6 +20,7 @@ package com.tamrielnetwork.vitalcondense.storage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.util.io.BukkitObjectInputStream;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -35,6 +36,8 @@ import java.util.Map;
 @SuppressWarnings ("unchecked")
 public class ValidItemStorageYaml extends ValidItemStorage {
 
+	private static final String IOEXCEPTION = "VitalCondense encountered an IOException while executing task";
+	private static final String CLASSNOTFOUNDEXCEPTION = "VitalCondense encountered a ClassNotFoundException while executing task";
 	private final File validItemFile;
 
 	public ValidItemStorageYaml() {
@@ -61,7 +64,8 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 			validItems = (HashMap<Integer, List<Material>>) in.readObject();
 
 		} catch (IOException | ClassNotFoundException exception) {
-			exception.printStackTrace();
+			Bukkit.getLogger().warning(IOEXCEPTION);
+			Bukkit.getLogger().warning(CLASSNOTFOUNDEXCEPTION);
 		}
 		return validItems;
 
