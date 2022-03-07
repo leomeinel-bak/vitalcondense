@@ -48,8 +48,8 @@ public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 
 		try (FileOutputStream fileOut = new FileOutputStream(validRecipeFile); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(validRecipes);
-		} catch (IOException i) {
-			i.printStackTrace();
+		} catch (IOException ignored) {
+			Bukkit.getLogger().warning(IOEXCEPTION);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 		try (FileInputStream fileIn = new FileInputStream(validRecipeFile); ObjectInputStream in = new ObjectInputStream(fileIn)) {
 			validRecipes = (EnumMap<Material, Material>) in.readObject();
 
-		} catch (IOException | ClassNotFoundException exception) {
+		} catch (IOException | ClassNotFoundException ignored) {
 			Bukkit.getLogger().warning(IOEXCEPTION);
 			Bukkit.getLogger().warning(CLASSNOTFOUNDEXCEPTION);
 		}

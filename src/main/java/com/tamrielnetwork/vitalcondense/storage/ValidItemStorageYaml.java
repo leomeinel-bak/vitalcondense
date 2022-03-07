@@ -50,8 +50,8 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 
 		try (FileOutputStream fileOut = new FileOutputStream(validItemFile); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(hashMap);
-		} catch (IOException i) {
-			i.printStackTrace();
+		} catch (IOException ignored) {
+			Bukkit.getLogger().warning(IOEXCEPTION);
 		}
 	}
 
@@ -63,7 +63,7 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 		try (FileInputStream fileIn = new FileInputStream(validItemFile); ObjectInputStream in = new ObjectInputStream(fileIn)) {
 			validItems = (HashMap<Integer, List<Material>>) in.readObject();
 
-		} catch (IOException | ClassNotFoundException exception) {
+		} catch (IOException | ClassNotFoundException ignored) {
 			Bukkit.getLogger().warning(IOEXCEPTION);
 			Bukkit.getLogger().warning(CLASSNOTFOUNDEXCEPTION);
 		}
