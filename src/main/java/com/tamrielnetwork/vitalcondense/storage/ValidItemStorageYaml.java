@@ -20,7 +20,6 @@ package com.tamrielnetwork.vitalcondense.storage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.util.io.BukkitObjectInputStream;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
