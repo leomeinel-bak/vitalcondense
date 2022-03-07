@@ -30,6 +30,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings ("unchecked")
 public class ValidItemStorageYaml extends ValidItemStorage {
@@ -42,30 +43,22 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 	}
 
 	@Override
-	public void saveValidItems(@NotNull HashMap<Integer, List<Material>> hashMap) {
+	public void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap) {
 
-		try {
-			FileOutputStream fileOut = new FileOutputStream(validItemFile);
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		try (FileOutputStream fileOut = new FileOutputStream(validItemFile); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(hashMap);
-			out.close();
-			fileOut.close();
 		} catch (IOException i) {
 			i.printStackTrace();
 		}
 	}
 
 	@Override
-	public HashMap<Integer, List<Material>> loadValidItems() {
+	public Map<Integer, List<Material>> loadValidItems() {
 
 		HashMap<Integer, List<Material>> validItems = new HashMap<>();
 
-		try {
-			FileInputStream fileIn = new FileInputStream(validItemFile);
-			ObjectInputStream in = new ObjectInputStream(fileIn);
+		try (FileInputStream fileIn = new FileInputStream(validItemFile); ObjectInputStream in = new ObjectInputStream(fileIn)) {
 			validItems = (HashMap<Integer, List<Material>>) in.readObject();
-			in.close();
-			fileIn.close();
 
 		} catch (IOException | ClassNotFoundException exception) {
 			exception.printStackTrace();

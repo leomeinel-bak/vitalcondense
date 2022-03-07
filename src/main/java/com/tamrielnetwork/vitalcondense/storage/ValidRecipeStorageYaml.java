@@ -28,7 +28,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
+import java.util.EnumMap;
+import java.util.Map;
 
 @SuppressWarnings ("unchecked")
 public class ValidRecipeStorageYaml extends ValidRecipeStorage {
@@ -41,30 +42,22 @@ public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 	}
 
 	@Override
-	public void saveValidRecipes(@NotNull HashMap<Material, Material> validRecipes) {
+	public void saveValidRecipes(@NotNull Map<Material, Material> validRecipes) {
 
-		try {
-			FileOutputStream fileOut = new FileOutputStream(validRecipeFile);
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+		try (FileOutputStream fileOut = new FileOutputStream(validRecipeFile); ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(validRecipes);
-			out.close();
-			fileOut.close();
 		} catch (IOException i) {
 			i.printStackTrace();
 		}
 	}
 
 	@Override
-	public HashMap<Material, Material> loadValidRecipes() {
+	public Map<Material, Material> loadValidRecipes() {
 
-		HashMap<Material, Material> validRecipes = new HashMap<>();
+		EnumMap<Material, Material> validRecipes = new EnumMap<>(Material.class);
 
-		try {
-			FileInputStream fileIn = new FileInputStream(validRecipeFile);
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			validRecipes = (HashMap<Material, Material>) in.readObject();
-			in.close();
-			fileIn.close();
+		try (FileInputStream fileIn = new FileInputStream(validRecipeFile); ObjectInputStream in = new ObjectInputStream(fileIn)) {
+			validRecipes = (EnumMap<Material, Material>) in.readObject();
 
 		} catch (IOException | ClassNotFoundException exception) {
 			exception.printStackTrace();

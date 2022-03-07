@@ -23,16 +23,16 @@ import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class ValidItemStorage {
 
 	protected final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
-	public abstract HashMap<Integer, List<Material>> loadValidItems();
+	public abstract Map<Integer, List<Material>> loadValidItems();
 
-	public abstract void saveValidItems(@NotNull HashMap<Integer, List<Material>> hashMap);
+	public abstract void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap);
 
 	public abstract void clear();
 

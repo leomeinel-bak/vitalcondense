@@ -28,6 +28,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,20 +61,17 @@ public class CmdSpec {
 
 	private static void doCondense(@NotNull Inventory senderInventory, @NotNull HashMap<Integer, List<ItemStack>> validItemsMap, @NotNull ItemStack validItem, int validItemAmount, int gridSize) {
 
-		if (validItemsMap.containsKey(gridSize) && validItemAmount >= gridSize) {
-			if (validItemsMap.get(gridSize).contains(validItem)) {
+		if (validItemsMap.containsKey(gridSize) && validItemAmount >= gridSize && validItemsMap.get(gridSize).contains(validItem)) {
+			int itemAmountToTake = validItemAmount - validItemAmount % gridSize;
+			ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
+			ItemStack itemsToGive = new ItemStack(getGiveMaterial(validItem), itemAmountToTake / gridSize);
 
-				int itemAmountToTake = validItemAmount - validItemAmount % gridSize;
-				ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-				ItemStack itemsToGive = new ItemStack(getGiveMaterial(validItem), itemAmountToTake / gridSize);
-
-				senderInventory.removeItem(itemsToTake);
-				senderInventory.addItem(itemsToGive);
-			}
+			senderInventory.removeItem(itemsToTake);
+			senderInventory.addItem(itemsToGive);
 		}
 	}
 
-	private static void calculateAmount(@NotNull ItemStack[] inventoryItemStacks, @NotNull HashMap<Material, Integer> amountsMap, @NotNull Material material) {
+	private static void calculateAmount(@NotNull ItemStack[] inventoryItemStacks, @NotNull EnumMap<Material, Integer> amountsMap, @NotNull Material material) {
 
 		for (ItemStack inventoryItems : inventoryItemStacks) {
 			if (isInvalidItem(inventoryItems, material)) {
@@ -92,8 +90,8 @@ public class CmdSpec {
 		List<ItemStack> smallGridItems = new ArrayList<>();
 		List<ItemStack> bigGridItems = new ArrayList<>();
 		HashMap<Integer, List<ItemStack>> validItemsMap = new HashMap<>();
-		HashMap<Material, Integer> smallGridAmountsMap = new HashMap<>();
-		HashMap<Material, Integer> bigGridAmountsMap = new HashMap<>();
+		EnumMap<Material, Integer> smallGridAmountsMap = new EnumMap<>(Material.class);
+		EnumMap<Material, Integer> bigGridAmountsMap = new EnumMap<>(Material.class);
 
 		for (Material material : main.getValidItemStorage().loadValidItems().get(4)) {
 			calculateAmount(inventoryItems, smallGridAmountsMap, material);
@@ -125,7 +123,7 @@ public class CmdSpec {
 		if (inventoryItem == null) {
 			return true;
 		}
-		return !(inventoryItem.getType() == material);
+		return inventoryItem.getType() != material;
 	}
 
 }
