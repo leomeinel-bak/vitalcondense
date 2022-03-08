@@ -32,12 +32,13 @@ import java.util.Map;
 
 public class StorageSpec {
 
-	private StorageSpec() {
-		throw new IllegalStateException("Utility class");
-	}
-
 	static final List<Material> inventoryCraft = new ArrayList<>();
 	static final List<Material> workbenchCraft = new ArrayList<>();
+
+	private StorageSpec() {
+
+		throw new IllegalStateException("Utility class");
+	}
 
 	public static Map<Integer, List<Material>> getValidItems() {
 
@@ -74,20 +75,25 @@ public class StorageSpec {
 			}
 			for (Recipe recipe : Bukkit.getRecipesFor(new ItemStack(material))) {
 
-				if (isInvalidMaterial(recipe)) {
-					continue;
-				}
-				List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
-				updateLists(ingredientsList);
-				if (inventoryCraft.stream().anyMatch(workbenchCraft::contains) && ingredientsList.size() == 4) {
-					continue;
-				}
-				validRecipes.put(ingredientsList.get(0).getType(), recipe.getResult().getType());
+				getRecipe(validRecipes, recipe);
 			}
 
 		}
 		return validRecipes;
 
+	}
+
+	private static void getRecipe(EnumMap<Material, Material> validRecipes, Recipe recipe) {
+
+		if (isInvalidMaterial(recipe)) {
+			return;
+		}
+		List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
+		updateLists(ingredientsList);
+		if (inventoryCraft.stream().anyMatch(workbenchCraft::contains) && ingredientsList.size() == 4) {
+			return;
+		}
+		validRecipes.put(ingredientsList.get(0).getType(), recipe.getResult().getType());
 	}
 
 	private static void updateLists(List<ItemStack> ingredientsList) {

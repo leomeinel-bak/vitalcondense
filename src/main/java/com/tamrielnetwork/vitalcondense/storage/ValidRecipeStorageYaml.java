@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -72,10 +73,12 @@ public class ValidRecipeStorageYaml extends ValidRecipeStorage {
 	@Override
 	public void clear() {
 
-		if (validRecipeFile.delete()) {
+		try {
+			Files.delete(validRecipeFile.toPath());
 			Bukkit.getLogger().info("VitalCondense deleted valid recipes!");
 			Bukkit.getLogger().info("VitalCondense will restore them on startup!");
-
+		} catch (IOException ignored) {
+			Bukkit.getLogger().warning(IOEXCEPTION);
 		}
 
 	}

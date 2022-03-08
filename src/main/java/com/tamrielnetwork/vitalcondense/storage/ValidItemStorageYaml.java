@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,10 +74,12 @@ public class ValidItemStorageYaml extends ValidItemStorage {
 	@Override
 	public void clear() {
 
-		if (validItemFile.delete()) {
+		try {
+			Files.delete(validItemFile.toPath());
 			Bukkit.getLogger().info("VitalCondense deleted valid items!");
 			Bukkit.getLogger().info("VitalCondense will restore them on startup!");
-
+		} catch (IOException ignored) {
+			Bukkit.getLogger().warning(IOEXCEPTION);
 		}
 
 	}

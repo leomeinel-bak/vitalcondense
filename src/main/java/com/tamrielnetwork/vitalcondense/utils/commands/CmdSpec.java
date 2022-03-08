@@ -31,14 +31,16 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CmdSpec {
 
+	private static final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
+
 	private CmdSpec() {
+
 		throw new IllegalStateException("Utility class");
 	}
-
-	private static final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
 	public static void handleCondense(@NotNull Player senderPlayer) {
 
@@ -100,15 +102,15 @@ public class CmdSpec {
 		for (Material material : main.getValidItemStorage().loadValidItems().get(4)) {
 			calculateAmount(inventoryItems, smallGridAmountsMap, material);
 		}
-		for (Material material : smallGridAmountsMap.keySet()) {
-			smallGridItems.add(new ItemStack(material, smallGridAmountsMap.get(material)));
+		for (Map.Entry<Material, Integer> entrySet : smallGridAmountsMap.entrySet()) {
+			smallGridItems.add(new ItemStack(entrySet.getKey(), entrySet.getValue()));
 		}
 
 		for (Material material : main.getValidItemStorage().loadValidItems().get(9)) {
 			calculateAmount(inventoryItems, bigGridAmountsMap, material);
 		}
-		for (Material material : bigGridAmountsMap.keySet()) {
-			bigGridItems.add(new ItemStack(material, bigGridAmountsMap.get(material)));
+		for (Map.Entry<Material, Integer> entrySet : bigGridAmountsMap.entrySet()) {
+			bigGridItems.add(new ItemStack(entrySet.getKey(), entrySet.getValue()));
 		}
 
 		validItemsMap.put(4, smallGridItems);

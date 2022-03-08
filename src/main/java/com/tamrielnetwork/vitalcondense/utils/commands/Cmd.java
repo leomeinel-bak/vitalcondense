@@ -25,7 +25,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class Cmd {
 
-	private Cmd(){
+	private Cmd() {
+
 		throw new IllegalStateException("Utility class");
 	}
 
