@@ -32,6 +32,10 @@ import java.util.Map;
 
 public class StorageSpec {
 
+	private StorageSpec() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	static final List<Material> inventoryCraft = new ArrayList<>();
 	static final List<Material> workbenchCraft = new ArrayList<>();
 

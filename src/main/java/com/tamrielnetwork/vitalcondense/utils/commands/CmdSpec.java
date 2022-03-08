@@ -34,6 +34,10 @@ import java.util.List;
 
 public class CmdSpec {
 
+	private CmdSpec() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	private static final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
 	public static void handleCondense(@NotNull Player senderPlayer) {

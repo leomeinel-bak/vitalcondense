@@ -28,6 +28,10 @@ import java.util.Objects;
 
 public class Chat {
 
+	private Chat() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	private static final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
 	public static void sendMessage(@NotNull CommandSender player, @NotNull String message) {
