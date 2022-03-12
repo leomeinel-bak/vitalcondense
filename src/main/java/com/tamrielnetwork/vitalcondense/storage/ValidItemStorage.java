@@ -35,5 +35,4 @@ public abstract class ValidItemStorage {
 	public abstract void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap);
 
 	public abstract void clear();
-
 }

@@ -30,7 +30,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
-public final class VitalCondense extends JavaPlugin {
+public final class VitalCondense
+		extends JavaPlugin {
 
 	private ValidItemStorage validItemStorage;
 	private ValidRecipeStorage validRecipeStorage;
@@ -38,53 +39,50 @@ public final class VitalCondense extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
-		Objects.requireNonNull(getCommand("condense")).setExecutor(new VitalCondenseCmd());
-
+		Objects.requireNonNull(getCommand("condense"))
+		       .setExecutor(new VitalCondenseCmd());
 		messages = new Messages();
-
 		setUpStorage();
-
-		Bukkit.getLogger().info("VitalCondense v" + this.getDescription().getVersion() + " enabled");
-		Bukkit.getLogger().info("Copyright (C) 2022 Leopold Meinel");
-		Bukkit.getLogger().info("This program comes with ABSOLUTELY NO WARRANTY!");
-		Bukkit.getLogger().info("This is free software, and you are welcome to redistribute it under certain conditions.");
-		Bukkit.getLogger().info("See https://github.com/TamrielNetwork/VitalCondense/blob/main/LICENSE for more details.");
+		Bukkit.getLogger()
+		      .info("VitalCondense v" + this.getDescription()
+		                                    .getVersion() + " enabled");
+		Bukkit.getLogger()
+		      .info("Copyright (C) 2022 Leopold Meinel");
+		Bukkit.getLogger()
+		      .info("This program comes with ABSOLUTELY NO WARRANTY!");
+		Bukkit.getLogger()
+		      .info("This is free software, and you are welcome to redistribute it under certain conditions.");
+		Bukkit.getLogger()
+		      .info("See https://github.com/TamrielNetwork/VitalCondense/blob/main/LICENSE for more details.");
 	}
 
 	private void setUpStorage() {
-
 		this.validItemStorage = new ValidItemStorageYaml();
 		this.validRecipeStorage = new ValidRecipeStorageYaml();
-
 		validItemStorage.saveValidItems(StorageSpec.getValidItems());
 		validRecipeStorage.saveValidRecipes(StorageSpec.getValidRecipes());
-
 	}
 
 	@Override
 	public void onDisable() {
-
 		validItemStorage.clear();
 		validRecipeStorage.clear();
-		Bukkit.getLogger().info("VitalCondense v" + this.getDescription().getVersion() + " disabled");
+		Bukkit.getLogger()
+		      .info("VitalCondense v" + this.getDescription()
+		                                    .getVersion() + " disabled");
 	}
 
 	public Messages getMessages() {
-
 		return messages;
 	}
 
 	public ValidItemStorage getValidItemStorage() {
-
 		return validItemStorage;
 	}
 
 	public ValidRecipeStorage getValidRecipeStorage() {
-
 		return validRecipeStorage;
 	}
-
 }
 
 

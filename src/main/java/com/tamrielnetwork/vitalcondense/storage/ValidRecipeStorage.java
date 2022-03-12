@@ -34,5 +34,4 @@ public abstract class ValidRecipeStorage {
 	public abstract void saveValidRecipes(@NotNull Map<Material, Material> validRecipes);
 
 	public abstract void clear();
-
 }
