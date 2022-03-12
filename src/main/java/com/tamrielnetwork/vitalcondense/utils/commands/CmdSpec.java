@@ -61,7 +61,8 @@ public class CmdSpec {
 		return Cmd.isNotPermitted(sender, perm);
 	}
 
-	private static void doCondense(@NotNull Inventory senderInventory, @NotNull HashMap<Integer, List<ItemStack>> validItemsMap,
+	private static void doCondense(@NotNull Inventory senderInventory,
+	                               @NotNull HashMap<Integer, List<ItemStack>> validItemsMap,
 	                               @NotNull ItemStack validItem, int validItemAmount, int gridSize) {
 		if (validItemsMap.containsKey(gridSize) && validItemAmount >= gridSize && validItemsMap.get(gridSize)
 		                                                                                       .contains(validItem)) {
