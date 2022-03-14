@@ -55,10 +55,7 @@ public class CmdSpec {
 	}
 
 	public static boolean isInvalidCmd(@NotNull CommandSender sender, @NotNull String perm) {
-		if (Cmd.isInvalidSender(sender)) {
-			return true;
-		}
-		return Cmd.isNotPermitted(sender, perm);
+		return Cmd.isInvalidSender(sender) || Cmd.isNotPermitted(sender, perm);
 	}
 
 	private static void doCondense(@NotNull Inventory senderInventory,
@@ -125,9 +122,6 @@ public class CmdSpec {
 	}
 
 	private static boolean isInvalidItem(ItemStack inventoryItem, @NotNull Material material) {
-		if (inventoryItem == null) {
-			return true;
-		}
-		return inventoryItem.getType() != material;
+		return inventoryItem == null || inventoryItem.getType() != material;
 	}
 }
