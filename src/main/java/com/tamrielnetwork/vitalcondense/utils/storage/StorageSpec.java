@@ -25,6 +25,7 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -41,20 +42,17 @@ public class StorageSpec {
 
 	public static Map<Integer, List<Material>> getValidItems() {
 		HashMap<Integer, List<Material>> validItems = new HashMap<>();
-		for (Material material : Material.values()) {
-			if (!material.isBlock()) {
-				continue;
-			}
-			for (Recipe recipe : Bukkit.getRecipesFor(new ItemStack(material))) {
-				if (isInvalidMaterial(recipe)) {
-					continue;
-				}
-				List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap()
-				                                                                         .values());
-				updateLists(ingredientsList);
-				inventoryCraft.removeIf(workbenchCraft::contains);
-			}
-		}
+		Arrays.stream(Material.values())
+		      .filter(Material::isBlock)
+		      .flatMap(material -> Bukkit.getRecipesFor(new ItemStack(material))
+		                                 .stream())
+		      .filter(recipe -> !isInvalidMaterial(recipe))
+		      .map(recipe -> new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap()
+		                                                            .values()))
+		      .forEach(ingredientsList -> {
+			      updateLists(ingredientsList);
+			      inventoryCraft.removeIf(workbenchCraft::contains);
+		      });
 		validItems.put(4, inventoryCraft);
 		validItems.put(9, workbenchCraft);
 		return validItems;
@@ -62,14 +60,11 @@ public class StorageSpec {
 
 	public static Map<Material, Material> getValidRecipes() {
 		EnumMap<Material, Material> validRecipes = new EnumMap<>(Material.class);
-		for (Material material : Material.values()) {
-			if (!material.isBlock()) {
-				continue;
-			}
-			for (Recipe recipe : Bukkit.getRecipesFor(new ItemStack(material))) {
-				getRecipe(validRecipes, recipe);
-			}
-		}
+		Arrays.stream(Material.values())
+		      .filter(Material::isBlock)
+		      .flatMap(material -> Bukkit.getRecipesFor(new ItemStack(material))
+		                                 .stream())
+		      .forEach(recipe -> getRecipe(validRecipes, recipe));
 		return validRecipes;
 	}
 
