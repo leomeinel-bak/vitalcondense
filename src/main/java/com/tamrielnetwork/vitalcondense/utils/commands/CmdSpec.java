@@ -28,11 +28,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CmdSpec {
 
@@ -46,14 +45,13 @@ public class CmdSpec {
 		Inventory senderInventory = senderPlayer.getInventory();
 		ItemStack[] inventoryItems = senderInventory.getStorageContents();
 		HashMap<Integer, List<ItemStack>> validItemsMap = getValidInventoryItems(inventoryItems);
-		validItemsMap.values()
-		             .stream()
-		             .flatMap(Collection::stream)
-		             .forEach(validItem -> {
-			             int validItemAmount = validItem.getAmount();
-			             doCondense(senderInventory, validItemsMap, validItem, validItemAmount, 4);
-			             doCondense(senderInventory, validItemsMap, validItem, validItemAmount, 9);
-		             });
+		for (List<ItemStack> validItems : validItemsMap.values()) {
+			for (ItemStack validItem : validItems) {
+				int validItemAmount = validItem.getAmount();
+				doCondense(senderInventory, validItemsMap, validItem, validItemAmount, 4);
+				doCondense(senderInventory, validItemsMap, validItem, validItemAmount, 9);
+			}
+		}
 	}
 
 	public static boolean isInvalidCmd(@NotNull CommandSender sender, @NotNull String perm) {
@@ -75,12 +73,18 @@ public class CmdSpec {
 
 	private static void calculateAmount(@NotNull ItemStack[] inventoryItemStacks,
 	                                    @NotNull EnumMap<Material, Integer> amountsMap, @NotNull Material material) {
-		Arrays.stream(inventoryItemStacks)
-		      .filter(inventoryItems -> !isInvalidItem(inventoryItems, material))
-		      .forEach(inventoryItems -> amountsMap.put(inventoryItems.getType(), amountsMap.containsKey(inventoryItems.getType())
-		                                               ? (amountsMap.get(inventoryItems.getType())
-		                                                  + inventoryItems.getAmount())
-		                                               : inventoryItems.getAmount()));
+		for (ItemStack inventoryItems : inventoryItemStacks) {
+			if (isInvalidItem(inventoryItems, material)) {
+				continue;
+			}
+			if (amountsMap.containsKey(inventoryItems.getType())) {
+				amountsMap.put(inventoryItems.getType(),
+				               (amountsMap.get(inventoryItems.getType()) + inventoryItems.getAmount()));
+			}
+			else {
+				amountsMap.put(inventoryItems.getType(), inventoryItems.getAmount());
+			}
+		}
 	}
 
 	private static HashMap<Integer, List<ItemStack>> getValidInventoryItems(@NotNull ItemStack[] inventoryItems) {
@@ -89,16 +93,22 @@ public class CmdSpec {
 		HashMap<Integer, List<ItemStack>> validItemsMap = new HashMap<>();
 		EnumMap<Material, Integer> smallGridAmountsMap = new EnumMap<>(Material.class);
 		EnumMap<Material, Integer> bigGridAmountsMap = new EnumMap<>(Material.class);
-		main.getValidItemStorage()
-		    .loadValidItems()
-		    .get(4)
-		    .forEach(material -> calculateAmount(inventoryItems, smallGridAmountsMap, material));
-		smallGridAmountsMap.forEach((key, value) -> smallGridItems.add(new ItemStack(key, value)));
-		main.getValidItemStorage()
-		    .loadValidItems()
-		    .get(9)
-		    .forEach(material -> calculateAmount(inventoryItems, bigGridAmountsMap, material));
-		bigGridAmountsMap.forEach((key, value) -> bigGridItems.add(new ItemStack(key, value)));
+		for (Material material : main.getValidItemStorage()
+		                             .loadValidItems()
+		                             .get(4)) {
+			calculateAmount(inventoryItems, smallGridAmountsMap, material);
+		}
+		for (Map.Entry<Material, Integer> entrySet : smallGridAmountsMap.entrySet()) {
+			smallGridItems.add(new ItemStack(entrySet.getKey(), entrySet.getValue()));
+		}
+		for (Material material : main.getValidItemStorage()
+		                             .loadValidItems()
+		                             .get(9)) {
+			calculateAmount(inventoryItems, bigGridAmountsMap, material);
+		}
+		for (Map.Entry<Material, Integer> entrySet : bigGridAmountsMap.entrySet()) {
+			bigGridItems.add(new ItemStack(entrySet.getKey(), entrySet.getValue()));
+		}
 		validItemsMap.put(4, smallGridItems);
 		validItemsMap.put(9, bigGridItems);
 		return validItemsMap;
