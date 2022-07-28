@@ -10,7 +10,7 @@
 <!--suppress ALL -->
 <br />
 <p align="center">
-  <a href="https://github.com/TamrielNetwork/VitalCondense">
+  <a href="https://github.com/LeoMeinel/VitalCondense">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -19,14 +19,14 @@
   <p align="center">
     Condense items on Spigot and Paper
     <br />
-    <a href="https://github.com/TamrielNetwork/VitalCondense"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/LeoMeinel/VitalCondense"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/TamrielNetwork/VitalCondense">View Demo</a>
+    <a href="https://github.com/LeoMeinel/VitalCondense">View Demo</a>
     ·
-    <a href="https://github.com/TamrielNetwork/VitalCondense/issues">Report Bug</a>
+    <a href="https://github.com/LeoMeinel/VitalCondense/issues">Report Bug</a>
     ·
-    <a href="https://github.com/TamrielNetwork/VitalCondense/issues">Request Feature</a>
+    <a href="https://github.com/LeoMeinel/VitalCondense/issues">Request Feature</a>
   </p>
 
 <!-- TABLE OF CONTENTS -->
@@ -100,7 +100,7 @@ player-only: "&cThis command can only be executed by players!"
 
 ## Roadmap
 
-See the [open issues](https://github.com/TamrielNetwork/VitalCondense/issues) for a list of proposed features (and known
+See the [open issues](https://github.com/LeoMeinel/VitalCondense/issues) for a list of proposed features (and known
 issues).
 
 <!-- CONTRIBUTING -->
@@ -130,7 +130,7 @@ Leopold Meinel - [@TamrielN](https://twitter.com/TamrielN) - Twitter
 
 Leopold Meinel - [contact@tamriel.me](mailto:contact@tamriel.me) - eMail
 
-Project Link - [VitalCondense](https://github.com/TamrielNetwork/VitalCondense) - GitHub
+Project Link - [VitalCondense](https://github.com/LeoMeinel/VitalCondense) - GitHub
 
 <!-- ACKNOWLEDGEMENTS -->
 
@@ -140,26 +140,26 @@ Project Link - [VitalCondense](https://github.com/TamrielNetwork/VitalCondense) 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors-anon/TamrielNetwork/VitalCondense?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors-anon/LeoMeinel/VitalCondense?style=for-the-badge
 
-[contributors-url]: https://github.com/TamrielNetwork/VitalCondense/graphs/contributors
+[contributors-url]: https://github.com/LeoMeinel/VitalCondense/graphs/contributors
 
-[forks-shield]: https://img.shields.io/github/forks/TamrielNetwork/VitalCondense?label=Forks&style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/LeoMeinel/VitalCondense?label=Forks&style=for-the-badge
 
-[forks-url]: https://github.com/TamrielNetwork/VitalCondense/network/members
+[forks-url]: https://github.com/LeoMeinel/VitalCondense/network/members
 
-[stars-shield]: https://img.shields.io/github/stars/TamrielNetwork/VitalCondense?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/LeoMeinel/VitalCondense?style=for-the-badge
 
-[stars-url]: https://github.com/TamrielNetwork/VitalCondense/stargazers
+[stars-url]: https://github.com/LeoMeinel/VitalCondense/stargazers
 
-[issues-shield]: https://img.shields.io/github/issues/TamrielNetwork/VitalCondense?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/LeoMeinel/VitalCondense?style=for-the-badge
 
-[issues-url]: https://github.com/TamrielNetwork/VitalCondense/issues
+[issues-url]: https://github.com/LeoMeinel/VitalCondense/issues
 
-[license-shield]: https://img.shields.io/github/license/TamrielNetwork/VitalCondense?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/LeoMeinel/VitalCondense?style=for-the-badge
 
-[license-url]: https://github.com/TamrielNetwork/VitalCondense/blob/main/LICENSE
+[license-url]: https://github.com/LeoMeinel/VitalCondense/blob/main/LICENSE
 
-[quality-shield]: https://img.shields.io/codefactor/grade/github/TamrielNetwork/VitalCondense?style=for-the-badge
+[quality-shield]: https://img.shields.io/codefactor/grade/github/LeoMeinel/VitalCondense?style=for-the-badge
 
-[quality-url]: https://www.codefactor.io/repository/github/TamrielNetwork/VitalCondense
+[quality-url]: https://www.codefactor.io/repository/github/LeoMeinel/VitalCondense
