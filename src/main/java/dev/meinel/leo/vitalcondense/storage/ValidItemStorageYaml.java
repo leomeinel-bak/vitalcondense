@@ -16,7 +16,7 @@
  * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcondense.storage;
+package dev.meinel.leo.vitalcondense.storage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -29,26 +29,27 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.nio.file.Files;
-import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unchecked")
-public class ValidRecipeStorageYaml
-		extends ValidRecipeStorage {
+public class ValidItemStorageYaml
+		extends ValidItemStorage {
 
 	private static final String IOEXCEPTION = "VitalCondense encountered an IOException while executing task";
 	private static final String CLASSNOTFOUNDEXCEPTION = "VitalCondense encountered a ClassNotFoundException while executing task";
-	private final File validRecipeFile;
+	private final File validItemFile;
 
-	public ValidRecipeStorageYaml() {
-		validRecipeFile = new File(main.getDataFolder(), "validrecipestorage.yml");
+	public ValidItemStorageYaml() {
+		validItemFile = new File(main.getDataFolder(), "validitemstorage.yml");
 	}
 
 	@Override
-	public void saveValidRecipes(@NotNull Map<Material, Material> validRecipes) {
-		try (FileOutputStream fileOut = new FileOutputStream(validRecipeFile);
+	public void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap) {
+		try (FileOutputStream fileOut = new FileOutputStream(validItemFile);
 		     ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-			out.writeObject(validRecipes);
+			out.writeObject(hashMap);
 		}
 		catch (IOException ignored) {
 			Bukkit.getLogger()
@@ -57,11 +58,11 @@ public class ValidRecipeStorageYaml
 	}
 
 	@Override
-	public Map<Material, Material> loadValidRecipes() {
-		EnumMap<Material, Material> validRecipes = new EnumMap<>(Material.class);
-		try (FileInputStream fileIn = new FileInputStream(validRecipeFile);
+	public Map<Integer, List<Material>> loadValidItems() {
+		HashMap<Integer, List<Material>> validItems = new HashMap<>();
+		try (FileInputStream fileIn = new FileInputStream(validItemFile);
 		     ObjectInputStream in = new ObjectInputStream(fileIn)) {
-			validRecipes = (EnumMap<Material, Material>) in.readObject();
+			validItems = (HashMap<Integer, List<Material>>) in.readObject();
 		}
 		catch (IOException | ClassNotFoundException ignored) {
 			Bukkit.getLogger()
@@ -69,15 +70,15 @@ public class ValidRecipeStorageYaml
 			Bukkit.getLogger()
 			      .warning(CLASSNOTFOUNDEXCEPTION);
 		}
-		return validRecipes;
+		return validItems;
 	}
 
 	@Override
 	public void clear() {
 		try {
-			Files.delete(validRecipeFile.toPath());
+			Files.delete(validItemFile.toPath());
 			Bukkit.getLogger()
-			      .info("VitalCondense deleted valid recipes!");
+			      .info("VitalCondense deleted valid items!");
 			Bukkit.getLogger()
 			      .info("VitalCondense will restore them on startup!");
 		}

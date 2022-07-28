@@ -1,6 +1,6 @@
 name: VitalCondense
 version: @version@
-main: com.tamrielnetwork.vitalcondense.VitalCondense
+main: dev.meinel.leo.vitalcondense.VitalCondense
 api-version: 1.17
 authors: [ Leopold Meinel ]
 description: Gives players the ability to condense items in their inventory.

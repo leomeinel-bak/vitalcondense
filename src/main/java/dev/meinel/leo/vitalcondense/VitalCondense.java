@@ -16,15 +16,15 @@
  * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcondense;
+package dev.meinel.leo.vitalcondense;
 
-import com.tamrielnetwork.vitalcondense.commands.VitalCondenseCmd;
-import com.tamrielnetwork.vitalcondense.files.Messages;
-import com.tamrielnetwork.vitalcondense.storage.ValidItemStorage;
-import com.tamrielnetwork.vitalcondense.storage.ValidItemStorageYaml;
-import com.tamrielnetwork.vitalcondense.storage.ValidRecipeStorage;
-import com.tamrielnetwork.vitalcondense.storage.ValidRecipeStorageYaml;
-import com.tamrielnetwork.vitalcondense.utils.storage.StorageSpec;
+import dev.meinel.leo.vitalcondense.commands.VitalCondenseCmd;
+import dev.meinel.leo.vitalcondense.files.Messages;
+import dev.meinel.leo.vitalcondense.storage.ValidItemStorage;
+import dev.meinel.leo.vitalcondense.storage.ValidItemStorageYaml;
+import dev.meinel.leo.vitalcondense.storage.ValidRecipeStorage;
+import dev.meinel.leo.vitalcondense.storage.ValidRecipeStorageYaml;
+import dev.meinel.leo.vitalcondense.utils.storage.StorageSpec;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

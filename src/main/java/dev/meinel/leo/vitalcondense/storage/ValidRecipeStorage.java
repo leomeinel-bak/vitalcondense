@@ -16,34 +16,22 @@
  * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcondense.files;
+package dev.meinel.leo.vitalcondense.storage;
 
-import com.tamrielnetwork.vitalcondense.VitalCondense;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import dev.meinel.leo.vitalcondense.VitalCondense;
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
+import java.util.Map;
 
-public class Messages {
+public abstract class ValidRecipeStorage {
 
-	private final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
-	private final File messagesFile;
-	private final FileConfiguration messagesConf;
+	protected final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
-	public Messages() {
-		messagesFile = new File(main.getDataFolder(), "messages.yml");
-		saveMessagesFile();
-		messagesConf = YamlConfiguration.loadConfiguration(messagesFile);
-	}
+	public abstract Map<Material, Material> loadValidRecipes();
 
-	private void saveMessagesFile() {
-		if (!messagesFile.exists()) {
-			main.saveResource("messages.yml", false);
-		}
-	}
+	public abstract void saveValidRecipes(@NotNull Map<Material, Material> validRecipes);
 
-	public FileConfiguration getMessagesConf() {
-		return messagesConf;
-	}
+	public abstract void clear();
 }

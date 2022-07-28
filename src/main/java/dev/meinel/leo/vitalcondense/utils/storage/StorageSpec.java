@@ -16,7 +16,7 @@
  * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcondense.utils.storage;
+package dev.meinel.leo.vitalcondense.utils.storage;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

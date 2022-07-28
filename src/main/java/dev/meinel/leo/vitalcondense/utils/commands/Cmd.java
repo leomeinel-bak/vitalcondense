@@ -16,9 +16,9 @@
  * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcondense.utils.commands;
+package dev.meinel.leo.vitalcondense.utils.commands;
 
-import com.tamrielnetwork.vitalcondense.utils.Chat;
+import dev.meinel.leo.vitalcondense.utils.Chat;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

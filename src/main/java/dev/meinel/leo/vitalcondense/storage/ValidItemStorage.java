@@ -16,22 +16,23 @@
  * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcondense.storage;
+package dev.meinel.leo.vitalcondense.storage;
 
-import com.tamrielnetwork.vitalcondense.VitalCondense;
+import dev.meinel.leo.vitalcondense.VitalCondense;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
 import java.util.Map;
 
-public abstract class ValidRecipeStorage {
+public abstract class ValidItemStorage {
 
 	protected final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
-	public abstract Map<Material, Material> loadValidRecipes();
+	public abstract Map<Integer, List<Material>> loadValidItems();
 
-	public abstract void saveValidRecipes(@NotNull Map<Material, Material> validRecipes);
+	public abstract void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap);
 
 	public abstract void clear();
 }

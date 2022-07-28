@@ -16,34 +16,31 @@
  * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
  */
 
-package com.tamrielnetwork.vitalcondense.commands;
+package dev.meinel.leo.vitalcondense.utils;
 
-import com.tamrielnetwork.vitalcondense.utils.commands.Cmd;
-import com.tamrielnetwork.vitalcondense.utils.commands.CmdSpec;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
+import dev.meinel.leo.vitalcondense.VitalCondense;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-public class VitalCondenseCmd
-		implements CommandExecutor {
+import java.util.Objects;
 
-	@Override
-	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-	                         @NotNull String[] args) {
-		if (Cmd.isArgsLengthNotEqualTo(sender, args, 0)) {
-			return false;
-		}
-		doCondense(sender);
-		return true;
+public class Chat {
+
+	private static final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
+
+	private Chat() {
+		throw new IllegalStateException("Utility class");
 	}
 
-	private void doCondense(@NotNull CommandSender sender) {
-		if (CmdSpec.isInvalidCmd(sender, "vitalcondense.condense")) {
-			return;
-		}
-		Player senderPlayer = (Player) sender;
-		CmdSpec.handleCondense(senderPlayer);
+	public static void sendMessage(@NotNull CommandSender player, @NotNull String message) {
+		player.sendMessage(replaceColors(Objects.requireNonNull(main.getMessages()
+		                                                            .getMessagesConf()
+		                                                            .getString(message))));
+	}
+
+	public static String replaceColors(@NotNull String string) {
+		return ChatColor.translateAlternateColorCodes('&', string);
 	}
 }
