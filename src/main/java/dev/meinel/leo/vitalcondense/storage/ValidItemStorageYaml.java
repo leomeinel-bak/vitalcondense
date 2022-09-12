@@ -27,53 +27,53 @@ import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class ValidItemStorageYaml
-		extends ValidItemStorage {
+        extends ValidItemStorage {
 
-	private static final String IOEXCEPTION = "VitalCondense encountered an IOException while executing task";
-	private static final String CLASSNOTFOUNDEXCEPTION = "VitalCondense encountered a ClassNotFoundException while executing task";
-	private final File validItemFile;
+    private static final String IOEXCEPTION = "VitalCondense encountered an IOException while executing task";
+    private static final String CLASSNOTFOUNDEXCEPTION = "VitalCondense encountered a ClassNotFoundException while executing task";
+    private final File validItemFile;
 
-	public ValidItemStorageYaml() {
-		validItemFile = new File(main.getDataFolder(), "validitemstorage.yml");
-	}
+    public ValidItemStorageYaml() {
+        validItemFile = new File(main.getDataFolder(), "validitemstorage.yml");
+    }
 
-	@Override
-	public void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap) {
-		try (FileOutputStream fileOut = new FileOutputStream(validItemFile);
-				ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
-			out.writeObject(hashMap);
-		} catch (IOException ignored) {
-			Bukkit.getLogger()
-					.warning(IOEXCEPTION);
-		}
-	}
+    @Override
+    public void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap) {
+        try (FileOutputStream fileOut = new FileOutputStream(validItemFile);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(hashMap);
+        } catch (IOException ignored) {
+            Bukkit.getLogger()
+                    .warning(IOEXCEPTION);
+        }
+    }
 
-	@Override
-	public Map<Integer, List<Material>> loadValidItems() {
-		HashMap<Integer, List<Material>> validItems = new HashMap<>();
-		try (FileInputStream fileIn = new FileInputStream(validItemFile);
-				ObjectInputStream in = new ObjectInputStream(fileIn)) {
-			validItems = (HashMap<Integer, List<Material>>) in.readObject();
-		} catch (IOException | ClassNotFoundException ignored) {
-			Bukkit.getLogger()
-					.warning(IOEXCEPTION);
-			Bukkit.getLogger()
-					.warning(CLASSNOTFOUNDEXCEPTION);
-		}
-		return validItems;
-	}
+    @Override
+    public Map<Integer, List<Material>> loadValidItems() {
+        HashMap<Integer, List<Material>> validItems = new HashMap<>();
+        try (FileInputStream fileIn = new FileInputStream(validItemFile);
+                ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            validItems = (HashMap<Integer, List<Material>>) in.readObject();
+        } catch (IOException | ClassNotFoundException ignored) {
+            Bukkit.getLogger()
+                    .warning(IOEXCEPTION);
+            Bukkit.getLogger()
+                    .warning(CLASSNOTFOUNDEXCEPTION);
+        }
+        return validItems;
+    }
 
-	@Override
-	public void clear() {
-		try {
-			Files.delete(validItemFile.toPath());
-			Bukkit.getLogger()
-					.info("VitalCondense deleted valid items!");
-			Bukkit.getLogger()
-					.info("VitalCondense will restore them on startup!");
-		} catch (IOException ignored) {
-			Bukkit.getLogger()
-					.warning(IOEXCEPTION);
-		}
-	}
+    @Override
+    public void clear() {
+        try {
+            Files.delete(validItemFile.toPath());
+            Bukkit.getLogger()
+                    .info("VitalCondense deleted valid items!");
+            Bukkit.getLogger()
+                    .info("VitalCondense will restore them on startup!");
+        } catch (IOException ignored) {
+            Bukkit.getLogger()
+                    .warning(IOEXCEPTION);
+        }
+    }
 }

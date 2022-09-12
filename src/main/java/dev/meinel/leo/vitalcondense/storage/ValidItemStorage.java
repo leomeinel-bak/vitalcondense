@@ -20,11 +20,11 @@ import java.util.Map;
 
 public abstract class ValidItemStorage {
 
-	protected final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
+    protected final VitalCondense main = JavaPlugin.getPlugin(VitalCondense.class);
 
-	public abstract Map<Integer, List<Material>> loadValidItems();
+    public abstract Map<Integer, List<Material>> loadValidItems();
 
-	public abstract void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap);
+    public abstract void saveValidItems(@NotNull Map<Integer, List<Material>> hashMap);
 
-	public abstract void clear();
+    public abstract void clear();
 }
