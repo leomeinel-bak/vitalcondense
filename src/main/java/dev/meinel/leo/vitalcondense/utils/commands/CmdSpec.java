@@ -1,19 +1,11 @@
 /*
- * VitalCondense is a Spigot Plugin that gives players the ability to condense items in their inventory.
- * Copyright © 2022 Leopold Meinel & contributors
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
+ * File: CmdSpec.java
+ * Author: Leopold Meinel (leo@meinel.dev)
+ * -----
+ * Copyright (c) 2022 Leopold Meinel & contributors
+ * SPDX ID: GPL-3.0-or-later
+ * URL: https://www.gnu.org/licenses/gpl-3.0-standalone.html
+ * -----
  */
 
 package dev.meinel.leo.vitalcondense.utils.commands;
@@ -59,10 +51,10 @@ public class CmdSpec {
 	}
 
 	private static void doCondense(@NotNull Inventory senderInventory,
-	                               @NotNull HashMap<Integer, List<ItemStack>> validItemsMap,
-	                               @NotNull ItemStack validItem, int validItemAmount, int gridSize) {
+			@NotNull HashMap<Integer, List<ItemStack>> validItemsMap,
+			@NotNull ItemStack validItem, int validItemAmount, int gridSize) {
 		if (validItemsMap.containsKey(gridSize) && validItemAmount >= gridSize && validItemsMap.get(gridSize)
-		                                                                                       .contains(validItem)) {
+				.contains(validItem)) {
 			int itemAmountToTake = validItemAmount - validItemAmount % gridSize;
 			ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
 			ItemStack itemsToGive = new ItemStack(getGiveMaterial(validItem), itemAmountToTake / gridSize);
@@ -72,16 +64,15 @@ public class CmdSpec {
 	}
 
 	private static void calculateAmount(@NotNull ItemStack[] inventoryItemStacks,
-	                                    @NotNull EnumMap<Material, Integer> amountsMap, @NotNull Material material) {
+			@NotNull EnumMap<Material, Integer> amountsMap, @NotNull Material material) {
 		for (ItemStack inventoryItems : inventoryItemStacks) {
 			if (isInvalidItem(inventoryItems, material)) {
 				continue;
 			}
 			if (amountsMap.containsKey(inventoryItems.getType())) {
 				amountsMap.put(inventoryItems.getType(),
-				               (amountsMap.get(inventoryItems.getType()) + inventoryItems.getAmount()));
-			}
-			else {
+						(amountsMap.get(inventoryItems.getType()) + inventoryItems.getAmount()));
+			} else {
 				amountsMap.put(inventoryItems.getType(), inventoryItems.getAmount());
 			}
 		}
@@ -94,16 +85,16 @@ public class CmdSpec {
 		EnumMap<Material, Integer> smallGridAmountsMap = new EnumMap<>(Material.class);
 		EnumMap<Material, Integer> bigGridAmountsMap = new EnumMap<>(Material.class);
 		for (Material material : main.getValidItemStorage()
-		                             .loadValidItems()
-		                             .get(4)) {
+				.loadValidItems()
+				.get(4)) {
 			calculateAmount(inventoryItems, smallGridAmountsMap, material);
 		}
 		for (Map.Entry<Material, Integer> entrySet : smallGridAmountsMap.entrySet()) {
 			smallGridItems.add(new ItemStack(entrySet.getKey(), entrySet.getValue()));
 		}
 		for (Material material : main.getValidItemStorage()
-		                             .loadValidItems()
-		                             .get(9)) {
+				.loadValidItems()
+				.get(9)) {
 			calculateAmount(inventoryItems, bigGridAmountsMap, material);
 		}
 		for (Map.Entry<Material, Integer> entrySet : bigGridAmountsMap.entrySet()) {
@@ -117,8 +108,8 @@ public class CmdSpec {
 	private static Material getGiveMaterial(@NotNull ItemStack itemStack) {
 		Material material = itemStack.getType();
 		return main.getValidRecipeStorage()
-		           .loadValidRecipes()
-		           .get(material);
+				.loadValidRecipes()
+				.get(material);
 	}
 
 	private static boolean isInvalidItem(ItemStack inventoryItem, @NotNull Material material) {

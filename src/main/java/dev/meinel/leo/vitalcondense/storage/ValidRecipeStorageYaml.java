@@ -1,19 +1,11 @@
 /*
- * VitalCondense is a Spigot Plugin that gives players the ability to condense items in their inventory.
- * Copyright © 2022 Leopold Meinel & contributors
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see https://github.com/LeoMeinel/VitalCompact/blob/main/LICENSE
+ * File: ValidRecipeStorageYaml.java
+ * Author: Leopold Meinel (leo@meinel.dev)
+ * -----
+ * Copyright (c) 2022 Leopold Meinel & contributors
+ * SPDX ID: GPL-3.0-or-later
+ * URL: https://www.gnu.org/licenses/gpl-3.0-standalone.html
+ * -----
  */
 
 package dev.meinel.leo.vitalcondense.storage;
@@ -47,12 +39,11 @@ public class ValidRecipeStorageYaml
 	@Override
 	public void saveValidRecipes(@NotNull Map<Material, Material> validRecipes) {
 		try (FileOutputStream fileOut = new FileOutputStream(validRecipeFile);
-		     ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+				ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
 			out.writeObject(validRecipes);
-		}
-		catch (IOException ignored) {
+		} catch (IOException ignored) {
 			Bukkit.getLogger()
-			      .warning(IOEXCEPTION);
+					.warning(IOEXCEPTION);
 		}
 	}
 
@@ -60,14 +51,13 @@ public class ValidRecipeStorageYaml
 	public Map<Material, Material> loadValidRecipes() {
 		EnumMap<Material, Material> validRecipes = new EnumMap<>(Material.class);
 		try (FileInputStream fileIn = new FileInputStream(validRecipeFile);
-		     ObjectInputStream in = new ObjectInputStream(fileIn)) {
+				ObjectInputStream in = new ObjectInputStream(fileIn)) {
 			validRecipes = (EnumMap<Material, Material>) in.readObject();
-		}
-		catch (IOException | ClassNotFoundException ignored) {
+		} catch (IOException | ClassNotFoundException ignored) {
 			Bukkit.getLogger()
-			      .warning(IOEXCEPTION);
+					.warning(IOEXCEPTION);
 			Bukkit.getLogger()
-			      .warning(CLASSNOTFOUNDEXCEPTION);
+					.warning(CLASSNOTFOUNDEXCEPTION);
 		}
 		return validRecipes;
 	}
@@ -77,13 +67,12 @@ public class ValidRecipeStorageYaml
 		try {
 			Files.delete(validRecipeFile.toPath());
 			Bukkit.getLogger()
-			      .info("VitalCondense deleted valid recipes!");
+					.info("VitalCondense deleted valid recipes!");
 			Bukkit.getLogger()
-			      .info("VitalCondense will restore them on startup!");
-		}
-		catch (IOException ignored) {
+					.info("VitalCondense will restore them on startup!");
+		} catch (IOException ignored) {
 			Bukkit.getLogger()
-			      .warning(IOEXCEPTION);
+					.warning(IOEXCEPTION);
 		}
 	}
 }
