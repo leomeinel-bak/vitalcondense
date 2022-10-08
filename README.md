@@ -11,7 +11,7 @@
 <!--suppress ALL -->
 <br />
 <p align="center">
-  <a href="https://github.com/LeoMeinel/VitalCondense">
+  <a href="https://github.com/LeoMeinel/vitalcondense">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -20,14 +20,14 @@
   <p align="center">
     Condense items on Spigot and Paper
     <br />
-    <a href="https://github.com/LeoMeinel/VitalCondense"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/LeoMeinel/vitalcondense"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/LeoMeinel/VitalCondense">View Demo</a>
+    <a href="https://github.com/LeoMeinel/vitalcondense">View Demo</a>
     ·
-    <a href="https://github.com/LeoMeinel/VitalCondense/issues">Report Bug</a>
+    <a href="https://github.com/LeoMeinel/vitalcondense/issues">Report Bug</a>
     ·
-    <a href="https://github.com/LeoMeinel/VitalCondense/issues">Request Feature</a>
+    <a href="https://github.com/LeoMeinel/vitalcondense/issues">Request Feature</a>
   </p>
 
 <!-- ABOUT THE PROJECT -->
@@ -74,7 +74,7 @@ player-only: "&cThis command can only be executed by players!"
 
 ## Roadmap
 
-See the [open issues](https://github.com/LeoMeinel/VitalCondense/issues) for a list of proposed features (and known
+See the [open issues](https://github.com/LeoMeinel/vitalcondense/issues) for a list of proposed features (and known
 issues).
 
 <!-- CONTRIBUTING -->
@@ -102,7 +102,7 @@ Distributed under the GNU General Public License v3.0. See `LICENSE` for more in
 
 Leopold Meinel - [leo@meinel.dev](mailto:leo@meinel.dev) - eMail
 
-Project Link - [VitalCondense](https://github.com/LeoMeinel/VitalCondense) - GitHub
+Project Link - [VitalCondense](https://github.com/LeoMeinel/vitalcondense) - GitHub
 
 <!-- ACKNOWLEDGEMENTS -->
 
@@ -112,15 +112,15 @@ Project Link - [VitalCondense](https://github.com/LeoMeinel/VitalCondense) - Git
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[contributors-shield]: https://img.shields.io/github/contributors-anon/LeoMeinel/VitalCondense?style=for-the-badge
-[contributors-url]: https://github.com/LeoMeinel/VitalCondense/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/LeoMeinel/VitalCondense?label=Forks&style=for-the-badge
-[forks-url]: https://github.com/LeoMeinel/VitalCondense/network/members
-[stars-shield]: https://img.shields.io/github/stars/LeoMeinel/VitalCondense?style=for-the-badge
-[stars-url]: https://github.com/LeoMeinel/VitalCondense/stargazers
-[issues-shield]: https://img.shields.io/github/issues/LeoMeinel/VitalCondense?style=for-the-badge
-[issues-url]: https://github.com/LeoMeinel/VitalCondense/issues
-[license-shield]: https://img.shields.io/github/license/LeoMeinel/VitalCondense?style=for-the-badge
-[license-url]: https://github.com/LeoMeinel/VitalCondense/blob/main/LICENSE
-[quality-shield]: https://img.shields.io/codefactor/grade/github/LeoMeinel/VitalCondense?style=for-the-badge
-[quality-url]: https://www.codefactor.io/repository/github/LeoMeinel/VitalCondense
+[contributors-shield]: https://img.shields.io/github/contributors-anon/LeoMeinel/vitalcondense?style=for-the-badge
+[contributors-url]: https://github.com/LeoMeinel/vitalcondense/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/LeoMeinel/vitalcondense?label=Forks&style=for-the-badge
+[forks-url]: https://github.com/LeoMeinel/vitalcondense/network/members
+[stars-shield]: https://img.shields.io/github/stars/LeoMeinel/vitalcondense?style=for-the-badge
+[stars-url]: https://github.com/LeoMeinel/vitalcondense/stargazers
+[issues-shield]: https://img.shields.io/github/issues/LeoMeinel/vitalcondense?style=for-the-badge
+[issues-url]: https://github.com/LeoMeinel/vitalcondense/issues
+[license-shield]: https://img.shields.io/github/license/LeoMeinel/vitalcondense?style=for-the-badge
+[license-url]: https://github.com/LeoMeinel/vitalcondense/blob/main/LICENSE
+[quality-shield]: https://img.shields.io/codefactor/grade/github/LeoMeinel/vitalcondense?style=for-the-badge
+[quality-url]: https://www.codefactor.io/repository/github/LeoMeinel/vitalcondense
