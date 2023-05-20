@@ -2,7 +2,7 @@
  * File: ValidItemStorageYaml.java
  * Author: Leopold Meinel (leo@meinel.dev)
  * -----
- * Copyright (c) 2022 Leopold Meinel & contributors
+ * Copyright (c) 2023 Leopold Meinel & contributors
  * SPDX ID: GPL-3.0-or-later
  * URL: https://www.gnu.org/licenses/gpl-3.0-standalone.html
  * -----
@@ -26,11 +26,12 @@ import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("unchecked")
-public class ValidItemStorageYaml
-        extends ValidItemStorage {
+public class ValidItemStorageYaml extends ValidItemStorage {
 
-    private static final String IOEXCEPTION = "VitalCondense encountered an IOException while executing task";
-    private static final String CLASSNOTFOUNDEXCEPTION = "VitalCondense encountered a ClassNotFoundException while executing task";
+    private static final String IOEXCEPTION =
+            "VitalCondense encountered an IOException while executing task";
+    private static final String CLASSNOTFOUNDEXCEPTION =
+            "VitalCondense encountered a ClassNotFoundException while executing task";
     private final File validItemFile;
 
     public ValidItemStorageYaml() {
@@ -43,8 +44,7 @@ public class ValidItemStorageYaml
                 ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(hashMap);
         } catch (IOException ignored) {
-            Bukkit.getLogger()
-                    .warning(IOEXCEPTION);
+            Bukkit.getLogger().warning(IOEXCEPTION);
         }
     }
 
@@ -55,10 +55,8 @@ public class ValidItemStorageYaml
                 ObjectInputStream in = new ObjectInputStream(fileIn)) {
             validItems = (HashMap<Integer, List<Material>>) in.readObject();
         } catch (IOException | ClassNotFoundException ignored) {
-            Bukkit.getLogger()
-                    .warning(IOEXCEPTION);
-            Bukkit.getLogger()
-                    .warning(CLASSNOTFOUNDEXCEPTION);
+            Bukkit.getLogger().warning(IOEXCEPTION);
+            Bukkit.getLogger().warning(CLASSNOTFOUNDEXCEPTION);
         }
         return validItems;
     }
@@ -67,13 +65,10 @@ public class ValidItemStorageYaml
     public void clear() {
         try {
             Files.delete(validItemFile.toPath());
-            Bukkit.getLogger()
-                    .info("VitalCondense deleted valid items!");
-            Bukkit.getLogger()
-                    .info("VitalCondense will restore them on startup!");
+            Bukkit.getLogger().info("VitalCondense deleted valid items!");
+            Bukkit.getLogger().info("VitalCondense will restore them on startup!");
         } catch (IOException ignored) {
-            Bukkit.getLogger()
-                    .warning(IOEXCEPTION);
+            Bukkit.getLogger().warning(IOEXCEPTION);
         }
     }
 }

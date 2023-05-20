@@ -2,7 +2,7 @@
  * File: StorageSpec.java
  * Author: Leopold Meinel (leo@meinel.dev)
  * -----
- * Copyright (c) 2022 Leopold Meinel & contributors
+ * Copyright (c) 2023 Leopold Meinel & contributors
  * SPDX ID: GPL-3.0-or-later
  * URL: https://www.gnu.org/licenses/gpl-3.0-standalone.html
  * -----
@@ -41,8 +41,8 @@ public class StorageSpec {
                 if (isInvalidMaterial(recipe)) {
                     continue;
                 }
-                List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap()
-                        .values());
+                List<ItemStack> ingredientsList =
+                        new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
                 updateLists(ingredientsList);
                 inventoryCraft.removeIf(workbenchCraft::contains);
             }
@@ -69,27 +69,22 @@ public class StorageSpec {
         if (isInvalidMaterial(recipe)) {
             return;
         }
-        List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap()
-                .values());
+        List<ItemStack> ingredientsList =
+                new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
         updateLists(ingredientsList);
-        if (inventoryCraft.stream()
-                .anyMatch(workbenchCraft::contains) && ingredientsList.size() == 4) {
+        if (inventoryCraft.stream().anyMatch(workbenchCraft::contains)
+                && ingredientsList.size() == 4) {
             return;
         }
-        validRecipes.put(ingredientsList.get(0)
-                .getType(),
-                recipe.getResult()
-                        .getType());
+        validRecipes.put(ingredientsList.get(0).getType(), recipe.getResult().getType());
     }
 
     private static void updateLists(List<ItemStack> ingredientsList) {
         if (ingredientsList.size() == 4) {
-            inventoryCraft.add(ingredientsList.get(0)
-                    .getType());
+            inventoryCraft.add(ingredientsList.get(0).getType());
         }
         if (ingredientsList.size() == 9) {
-            workbenchCraft.add(ingredientsList.get(0)
-                    .getType());
+            workbenchCraft.add(ingredientsList.get(0).getType());
         }
     }
 
@@ -97,21 +92,19 @@ public class StorageSpec {
         if (!(recipe instanceof ShapedRecipe)) {
             return true;
         }
-        List<ItemStack> ingredientsList = new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap()
-                .values());
+        List<ItemStack> ingredientsList =
+                new ArrayList<>(((ShapedRecipe) recipe).getIngredientMap().values());
         if (ingredientsList.contains(null)) {
             return true;
         }
         for (ItemStack itemStack : ingredientsList) {
-            if (itemStack.getType()
-                    .isBlock()) {
+            if (itemStack.getType().isBlock()) {
                 return true;
             }
         }
         if (!(ingredientsList.size() == 9 || ingredientsList.size() == 4)) {
             return true;
         }
-        return !(ingredientsList.stream()
-                .allMatch(ingredientsList.get(0)::equals));
+        return !(ingredientsList.stream().allMatch(ingredientsList.get(0)::equals));
     }
 }

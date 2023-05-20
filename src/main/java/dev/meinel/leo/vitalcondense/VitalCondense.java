@@ -22,8 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
 
-public final class VitalCondense
-        extends JavaPlugin {
+public final class VitalCondense extends JavaPlugin {
 
     private ValidItemStorage validItemStorage;
     private ValidRecipeStorage validRecipeStorage;
@@ -31,18 +30,14 @@ public final class VitalCondense
 
     @Override
     public void onEnable() {
-        Objects.requireNonNull(getCommand("condense"))
-                .setExecutor(new VitalCondenseCmd());
+        Objects.requireNonNull(getCommand("condense")).setExecutor(new VitalCondenseCmd());
         messages = new Messages();
         setUpStorage();
-        Bukkit.getLogger()
-                .info("VitalCondense v" + this.getPluginMeta().getVersion() + " enabled");
-        Bukkit.getLogger()
-                .info("Copyright (C) 2022 Leopold Meinel");
-        Bukkit.getLogger()
-                .info("This program comes with ABSOLUTELY NO WARRANTY!");
-        Bukkit.getLogger()
-                .info("This is free software, and you are welcome to redistribute it under certain conditions.");
+        Bukkit.getLogger().info("VitalCondense v" + this.getPluginMeta().getVersion() + " enabled");
+        Bukkit.getLogger().info("Copyright (C) 2022 Leopold Meinel");
+        Bukkit.getLogger().info("This program comes with ABSOLUTELY NO WARRANTY!");
+        Bukkit.getLogger().info(
+                "This is free software, and you are welcome to redistribute it under certain conditions.");
         Bukkit.getLogger()
                 .info("See https://www.gnu.org/licenses/gpl-3.0-standalone.html for more details.");
     }

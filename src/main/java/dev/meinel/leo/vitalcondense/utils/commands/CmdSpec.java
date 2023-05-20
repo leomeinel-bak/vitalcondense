@@ -2,7 +2,7 @@
  * File: CmdSpec.java
  * Author: Leopold Meinel (leo@meinel.dev)
  * -----
- * Copyright (c) 2022 Leopold Meinel & contributors
+ * Copyright (c) 2023 Leopold Meinel & contributors
  * SPDX ID: GPL-3.0-or-later
  * URL: https://www.gnu.org/licenses/gpl-3.0-standalone.html
  * -----
@@ -51,13 +51,14 @@ public class CmdSpec {
     }
 
     private static void doCondense(@NotNull Inventory senderInventory,
-            @NotNull HashMap<Integer, List<ItemStack>> validItemsMap,
-            @NotNull ItemStack validItem, int validItemAmount, int gridSize) {
-        if (validItemsMap.containsKey(gridSize) && validItemAmount >= gridSize && validItemsMap.get(gridSize)
-                .contains(validItem)) {
+            @NotNull HashMap<Integer, List<ItemStack>> validItemsMap, @NotNull ItemStack validItem,
+            int validItemAmount, int gridSize) {
+        if (validItemsMap.containsKey(gridSize) && validItemAmount >= gridSize
+                && validItemsMap.get(gridSize).contains(validItem)) {
             int itemAmountToTake = validItemAmount - validItemAmount % gridSize;
             ItemStack itemsToTake = new ItemStack(validItem.getType(), itemAmountToTake);
-            ItemStack itemsToGive = new ItemStack(getGiveMaterial(validItem), itemAmountToTake / gridSize);
+            ItemStack itemsToGive =
+                    new ItemStack(getGiveMaterial(validItem), itemAmountToTake / gridSize);
             senderInventory.removeItem(itemsToTake);
             senderInventory.addItem(itemsToGive);
         }
@@ -78,23 +79,20 @@ public class CmdSpec {
         }
     }
 
-    private static HashMap<Integer, List<ItemStack>> getValidInventoryItems(@NotNull ItemStack[] inventoryItems) {
+    private static HashMap<Integer, List<ItemStack>> getValidInventoryItems(
+            @NotNull ItemStack[] inventoryItems) {
         List<ItemStack> smallGridItems = new ArrayList<>();
         List<ItemStack> bigGridItems = new ArrayList<>();
         HashMap<Integer, List<ItemStack>> validItemsMap = new HashMap<>();
         EnumMap<Material, Integer> smallGridAmountsMap = new EnumMap<>(Material.class);
         EnumMap<Material, Integer> bigGridAmountsMap = new EnumMap<>(Material.class);
-        for (Material material : main.getValidItemStorage()
-                .loadValidItems()
-                .get(4)) {
+        for (Material material : main.getValidItemStorage().loadValidItems().get(4)) {
             calculateAmount(inventoryItems, smallGridAmountsMap, material);
         }
         for (Map.Entry<Material, Integer> entrySet : smallGridAmountsMap.entrySet()) {
             smallGridItems.add(new ItemStack(entrySet.getKey(), entrySet.getValue()));
         }
-        for (Material material : main.getValidItemStorage()
-                .loadValidItems()
-                .get(9)) {
+        for (Material material : main.getValidItemStorage().loadValidItems().get(9)) {
             calculateAmount(inventoryItems, bigGridAmountsMap, material);
         }
         for (Map.Entry<Material, Integer> entrySet : bigGridAmountsMap.entrySet()) {
@@ -107,9 +105,7 @@ public class CmdSpec {
 
     private static Material getGiveMaterial(@NotNull ItemStack itemStack) {
         Material material = itemStack.getType();
-        return main.getValidRecipeStorage()
-                .loadValidRecipes()
-                .get(material);
+        return main.getValidRecipeStorage().loadValidRecipes().get(material);
     }
 
     private static boolean isInvalidItem(ItemStack inventoryItem, @NotNull Material material) {
