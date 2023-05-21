@@ -65,7 +65,6 @@ To get the plugin running on your server follow these simple steps.
 ### Configuration - messages.yml
 
 ```yaml
-cmd: "&fUsage: &b/condense"
 no-perms: "&cYou don't have enough permissions!"
 player-only: "&cThis command can only be executed by players!"
 ```
